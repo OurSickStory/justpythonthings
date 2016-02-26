@@ -25,10 +25,10 @@ def numberGuess():
         if guess < number:
             print('Your guess is too low.') 
 
-        if guess > number and guess < 10:
+        if guess > number and guess <= 10:
             print('Your guess is too high.')
         
-        if guess >= 11:
+        if guess > 10:
             print('Please use a number 1-10.')
         
         if guessesLeft <= 5 and guessesLeft != 0 and guess != number:
