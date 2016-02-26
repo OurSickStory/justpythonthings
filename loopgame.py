@@ -1,8 +1,6 @@
 # start of number game.
 import random
 
-guessesTaken = 0
-guessesLeft =  6
 
 def numberGuess():
     guessesTaken = 0
