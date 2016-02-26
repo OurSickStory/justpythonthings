@@ -18,9 +18,11 @@ def numberGuess():
             guess = int(guess)
         except ValueError:
             print("That's not a number stupid")
-        
+            continue
+                
         guessesTaken = guessesTaken + 1
         guessesLeft = guessesLeft - 1
+        
    
         if guess < number:
             print('Your guess is too low.') 
@@ -30,10 +32,11 @@ def numberGuess():
         
         if guess > 10:
             print('Please use a number 1-10.')
+            continue
         
         if guessesLeft <= 5 and guessesLeft != 0 and guess != number:
             print ('You have ' +  str(guessesLeft) + ' guesses left.')
-
+        
         if guess == number:
             break
           
