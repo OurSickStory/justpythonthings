@@ -15,7 +15,7 @@ def numberGuess():
         try:
             guess = int(guess)
         except ValueError:
-            print("That's not a number stupid")
+            print("That's not a number stupid.")
             continue
                 
         guessesTaken = guessesTaken + 1
