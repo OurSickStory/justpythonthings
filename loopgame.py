@@ -1,5 +1,4 @@
 # start of number game.
-#based on https://inventwithpython.com/guess.py
 import random
 
 guessesTaken = 0
@@ -32,7 +31,7 @@ def numberGuess():
         if guess >= 11:
             print('Please use a number 1-10.')
         
-        if guessesLeft <= 5 and guessesLeft != 0:
+        if guessesLeft <= 5 and guessesLeft != 0 and guess != number:
             print ('You have ' +  str(guessesLeft) + ' guesses left.')
 
         if guess == number:
@@ -40,7 +39,7 @@ def numberGuess():
           
     if guess == number:
         guessesTaken = str(guessesTaken)
-        print('Good job! You guessed my number in ' + guessesTaken + ' guesses!')
+        print('Good job! You guessed my number in ' + guessesTaken + ' guesses!' + "\n" + "\n" + 'Lets play again!')
         numberGuess()
 
     if guess != number:
