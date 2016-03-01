@@ -7,11 +7,9 @@ player_state = 'normal'
 enemy_list = ["chicken", "goblin", "werewolf"]
 enemy_name = random.choice(enemy_list)
 player_health = 10
-current_player_health = player_health
 enemy_health = random.randint(1, int(player_health))
-current_enemy_health = enemy_health
-player_hit = random.randint(1,int(current_enemy_health))
-enemy_hit = random.randint(1,int(current_player_health))
+player_hit = random.randint(1,int(enemy_health))
+enemy_hit = random.randint(1,int(player_health))
 
 
 def char_name():
@@ -30,6 +28,8 @@ def main_menu():
     mainmenu = input("What would you like to do?:")	
     if mainmenu in commands:
         if mainmenu == "fight":
+            print('You have started a fight with an {}.'.format(enemy_name))
+            state = 'fight'
             fightstart()
         if mainmenu == "status":
             status()
@@ -38,44 +38,42 @@ def main_menu():
         main_menu()
 
 def fightstart():
-    state = 'fight'
-    if state == "fight":
-        print('You have started a fight with an {}.'.format(enemy_name))
-        
+    global player_health
+    player_health = current(player_health)
+    global enemy_health
+    enemy_health = current(enemy_health)
+    
         #fight takes place.
-        
-        while state == "fight" and int(player_health) > 0:
-
-
-            global current_enemy_health
-            current_enemy_health = current_enemy_health - player_hit
-            global current_player_health
-            current_player_health = current_player_health - enemy_hit
-			
-            global player_hit 
-            player_hit = random.randint(1,int(current_enemy_health))
-            global enemy_hit 
-            enemy_hit= random.randint(1,int(current_player_health))
-            
-            print('Current enemy health {} your current health {}.'.format(current_enemy_health,current_player_health))		
-                
-            if int(current_enemy_health) <= 0:
-                print('you have killed the ' + enemy_name + '.')
-                global enemy_name
-                enemy_name =random.choice(enemy_list)
-                global enemy_health 
-                enemy_health = random.randint(1, int(player_health))
-                main_menu()
-
-            if int(current_player_health) <= 0:
-                death() 
-
-    else: 
-        print('You are not currently in a fight!')
-        main_menu()
+    while (enemy_health < 0):
+        enemy_health = current(enemy_health)
+    while (player_health <=0):
+        player_health = current(player_health)
+    print('Current enemy health {} current player health {} enemy dealt {} you dealt {}.'.format(enemy_health,player_health,enemy_hit,player_hit))
+    fightstart()
   
 def death():
     print('Oh dear..you are dead')
 
-char_name()
+def win():
+    print('You have killed a {}.'.format(enemy_name))
+    main_menu()
+    
+def current(player_health):
+    player_health = player_health - enemy_hit
+    if player_health <= 0:
+        death()
+    else:
+        return player_health
+  
+def current(enemy_health):
+    enemy_health = enemy_health - player_hit
+    if enemy_health <= 0:
+        win()
+    else:
+        return enemy_health
 
+  
+
+
+
+char_name()
