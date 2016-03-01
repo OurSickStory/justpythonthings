@@ -47,7 +47,6 @@ def main_menu():
     mainmenu = input("What would you like to do?:")	
     if mainmenu in commands:
         if mainmenu == "fight":
-            print('You have started a fight with a {}.'.format(enemy_name))
             state = 'fight'
             fightstart()
         if mainmenu == "status":
@@ -59,6 +58,7 @@ def main_menu():
         main_menu()
 
 def fightstart():
+    print('You have started a fight with a {}.'.format(enemy_name))
     global enemy_health
     enemy_health = enemy(enemy_health)
     global player_health
@@ -67,13 +67,12 @@ def fightstart():
     player_hit = random.randint(1,int(enemy_health))
     global enemy_hit
     enemy_hit = random.randint(1,int(player_health))
-    
+    print('Current player health: {}.'.format(player_health))    
         #fight takes place.
     while (enemy_health >= 0):
         enemy_health = enemy(enemy_health)
     while (player_health >= 0):
         player_health = player(player_health)
-    print('Current enemy health {} current player health {} enemy dealt {} you dealt {}.'.format(enemy_health,player_health,enemy_hit,player_hit))
     fightstart()
 	
 def win():
@@ -98,8 +97,8 @@ def enemy(enemy_health):
         win()
     else:
         return enemy_health
-
-char_name()
-
+        
 def death():
     print('Oh dear..you are dead')
+    
+char_name()
