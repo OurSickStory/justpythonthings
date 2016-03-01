@@ -69,6 +69,7 @@ def fightstart():
     enemy_hit = random.randint(1,int(player_health))
     print('Current player health: {}.'.format(player_health))    
         #fight takes place.
+        
     while (enemy_health >= 0):
         enemy_health = enemy(enemy_health)
     while (player_health >= 0):
@@ -76,11 +77,9 @@ def fightstart():
     fightstart()
 	
 def win():
-    global enemy_name
-    enemy_name = random.choice(enemy_list)
+    print('You have killed a {}.'.format(enemy_name))
     global enemy_health
     enemy_health = random.randint(1, int(player_health))
-    print('You have killed a {}.'.format(enemy_name))
     main_menu()
 
   
