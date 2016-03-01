@@ -68,6 +68,8 @@ def main_menu():
                 rest()
             if mainmenu == "status":
                 status()
+            if mainmenu == "debug":
+                debug()
         else:
             print('That\'s not a valid command, ' + charname + '.')
 
@@ -122,4 +124,3 @@ def death():
     main_menu()
 
 char_name()
-
