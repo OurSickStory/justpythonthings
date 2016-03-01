@@ -8,11 +8,10 @@ enemy_list = ["chicken", "goblin", "werewolf"]
 enemy_name = random.choice(enemy_list)
 player_health = 10
 max_health = 15
-max_heal = max_health - player_health
-max_heal = int(max_heal)
-enemy_health = random.randint(1, int(player_health))
+enemy_health = random.randint(1,int(player_health))
 player_hit = random.randint(1,int(enemy_health))
 enemy_hit = random.randint(1,int(player_health))
+max_heal = max_health - player_health
 player_rest = random.randint(1,int(max_heal))
 
 
@@ -28,9 +27,14 @@ def rest():
     global player_health 
     player_health = player_health
     if player_health < max_health:
+        global max_heal
+        max_heal = max_health - player_health
+        global player_rest
+        player_rest = random.randint(1,int(max_heal))
         player_health = player_health + player_rest
         print('Your health has been restore, your current health is {}.'.format(player_health))
         main_menu()
+        
     if player_health >= max_health:
         print('You seem to be fully healed')
         main_menu()
