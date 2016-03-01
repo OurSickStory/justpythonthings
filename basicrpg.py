@@ -13,7 +13,7 @@ player_hit = random.randint(1,int(enemy_health))
 enemy_hit = random.randint(1,int(player_health))
 max_heal = max_health - player_health
 player_rest = random.randint(1,int(max_heal))
-
+RestorFight = random.randint(1,100)
 
 def char_name():
     print('Welcome to the woods ' + charname + '.')
@@ -26,6 +26,14 @@ def status():
 def rest():
     global player_health 
     player_health = player_health
+    global RestorFight
+    RestorFight = random.randint(1,100)
+    
+    if RestorFight >= 75:
+        print('Looks like I\'m not sleeping now!')
+        fightstart()
+        
+      
     if player_health < max_health:
         global max_heal
         max_heal = max_health - player_health
