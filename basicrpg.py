@@ -1,15 +1,17 @@
 import random
 
-commands = ["status", "debug", "fight"]
+commands = ["status", "debug", "fight", "rest"]
 charname = input('What\'s your name?')
 charname = str(charname)
 player_state = 'normal'
 enemy_list = ["chicken", "goblin", "werewolf"]
 enemy_name = random.choice(enemy_list)
 player_health = 10
+max_health = 15
 enemy_health = random.randint(1, int(player_health))
 player_hit = random.randint(1,int(enemy_health))
 enemy_hit = random.randint(1,int(player_health))
+player_rest = random.randint(1,int(max_health))
 
 
 def char_name():
@@ -19,6 +21,17 @@ def char_name():
 def status(): 
     print('Current State: {} | Current health: {}.'.format(player_state, player_health)) 
     main_menu()
+
+def rest():
+    global player_health 
+    player_health = player_health
+    if player_health <= max_health:
+        player_health = player_health + player_rest
+        print('Your health has been restore, your current health is {}.'.format(player_health))
+        main_menu()
+    if player_health >= max_health:
+        print('You seem to be fully healed')
+        main_menu()
 
 def debug():
     print('Just a debug message.')
@@ -33,15 +46,17 @@ def main_menu():
             fightstart()
         if mainmenu == "status":
             status()
+        if mainmenu == "rest":
+            rest()
     else:
         print('That\'s not a valid command, ' + charname + '.')
         main_menu()
 
 def fightstart():
     global player_health
-    player_health = current(player_health)
+    player_health = current(player_health,enemy_health)
     global enemy_health
-    enemy_health = current(enemy_health)
+    enemy_health = current(enemy_health,player_health)
     global player_hit
     player_hit = random.randint(1,int(enemy_health))
     global enemy_hit
@@ -49,9 +64,9 @@ def fightstart():
     
         #fight takes place.
     while (enemy_health < 0):
-        enemy_health = current(enemy_health)
+        enemy_health = current(enemy_health,player_health)
     while (player_health <=0):
-        player_health = current(player_health)
+        player_health = current(player_health,enemy_health)
     print('Current enemy health {} current player health {} enemy dealt {} you dealt {}.'.format(enemy_health,player_health,enemy_hit,player_hit))
     fightstart()
   
@@ -61,15 +76,15 @@ def death():
 def win():
     print('You have killed a {}.'.format(enemy_name))
     main_menu()
-    
-def current(player_health):
+
+  
+def current(player_health,enemy_health):
     player_health = player_health - enemy_hit
     if player_health <= 0:
         death()
     else:
         return player_health
-  
-def current(enemy_health):
+		
     enemy_health = enemy_health - player_hit
     if enemy_health <= 0:
         win()
