@@ -53,46 +53,47 @@ def main_menu():
         main_menu()
 
 def fightstart():
-    global player_health
-    player_health = current(player_health,enemy_health)
     global enemy_health
-    enemy_health = current(enemy_health,player_health)
+    enemy_health = enemy(enemy_health)
+    global player_health
+    player_health = player(player_health)
     global player_hit
     player_hit = random.randint(1,int(enemy_health))
     global enemy_hit
     enemy_hit = random.randint(1,int(player_health))
     
         #fight takes place.
-    while (enemy_health < 0):
-        enemy_health = current(enemy_health,player_health)
-    while (player_health <=0):
-        player_health = current(player_health,enemy_health)
+    while (enemy_health >= 0):
+        enemy_health = enemy(enemy_health)
+    while (player_health >= 0):
+        player_health = player(player_health)
     print('Current enemy health {} current player health {} enemy dealt {} you dealt {}.'.format(enemy_health,player_health,enemy_hit,player_hit))
     fightstart()
-  
-def death():
-    print('Oh dear..you are dead')
-
+	
 def win():
+    global enemy_name
+    enemy_name = random.choice(enemy_list)
+    global enemy_health
+    enemy_health = random.randint(1, int(player_health))
     print('You have killed a {}.'.format(enemy_name))
     main_menu()
 
   
-def current(player_health,enemy_health):
-    player_health = player_health - enemy_hit
+def player(player_health):
+    player_health = player_health - enemy_hit    
     if player_health <= 0:
         death()
     else:
-        return player_health
+	    return player_health
 		
+def enemy(enemy_health):	
     enemy_health = enemy_health - player_hit
     if enemy_health <= 0:
         win()
     else:
         return enemy_health
 
-  
-
-
-
 char_name()
+
+def death():
+    print('Oh dear..you are dead')
