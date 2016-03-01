@@ -14,13 +14,14 @@ enemy_hit = random.randint(1,int(player_health))
 max_heal = max_health - player_health
 player_rest = random.randint(1,int(max_heal))
 RestorFight = random.randint(1,100)
+killCount = 0
 
 def char_name():
     print('Welcome to the woods ' + charname + '.')
     main_menu()
 	
 def status(): 
-    print('Current State: {} | Current health: {}.'.format(player_state, player_health)) 
+    print('Current State: {} | Current health: {}. Kill Count {}.'.format(player_state, player_health,killCount)) 
     main_menu()
 
 def rest():
@@ -88,6 +89,8 @@ def win():
     print('You have killed a {}.'.format(enemy_name))
     global enemy_health
     enemy_health = random.randint(1, int(player_health))
+    global killCount
+    killCount = killCount + 1
     main_menu()
 
   
@@ -107,5 +110,10 @@ def enemy(enemy_health):
         
 def death():
     print('Oh dear..you are dead')
+    global killCount
+    killCount = 0
+    global player_health
+    player_health = 10
+    main_menu()
     
 char_name()
