@@ -19,6 +19,14 @@ scale nicely into the game?
 ##so if monsters health below x name this
 ##else named this?
 
+#add amulet of life
+##if in inventory a hit can't be critical
+
+#add help to main menu
+
+#add sell menu
+##price is reduced to half of what you paid.
+
 #add flee
 ##if current health is less then enemy --
 ##would you like to flee?
