@@ -1,3 +1,5 @@
+#rough version of the game, updating constantly.
+#use it, learn from it, critize, help fix, doesn't matter to me.
 import random
 
 commands = ["status", "debug", "fight", "rest"]
