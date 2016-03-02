@@ -6,10 +6,17 @@
 ----------------------------------------------
 ################Tweaks
 ----------------------------------------------
-##gold is currently based on enemy starting 
+#gold is currently based on enemy starting 
 health, you can get between 1-starting health
 gold. Should this be reworked? this should
 scale nicely into the game?
+
+#maybe on die a way to reset all variables to 
+default instead of doing it manually.
+
+#tweak combat.
+##at the end show current health +
+total enemy damage and total player damage?
 ----------------------------------------------
 ############Todo - add - reworks
 ----------------------------------------------
@@ -18,6 +25,9 @@ scale nicely into the game?
 ##this would also increase monsters?
 ##so if monsters health below x name this
 ##else named this?
+
+#add Missed 
+##if player_hit == 0 you missed bitch
 
 #add amulet of life
 ##if in inventory a hit can't be critical
