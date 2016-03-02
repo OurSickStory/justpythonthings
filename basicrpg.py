@@ -6,7 +6,7 @@
 import random
 ##########################################################################
 #menu variables
-##########################################################################
+###############################################`###########################
 menucommands = ["status", "debug", "fight", "rest", "buy"]
 ##########################################################################
 #player variables
@@ -18,6 +18,7 @@ player_state = 'normal'
 #battle  variables
 ##########################################################################
 enemy_list = ["chicken", "goblin", "werewolf"]
+enemy_list_2 = ["boar", "lion", "lizard"]
 enemy_name = random.choice(enemy_list)
 player_health = 10
 max_health = 15
@@ -43,7 +44,7 @@ needExp = 5
 addXp = random.randint(1,int(enemy_starting_health))
 gainedXP = 1
 tilLevel = needExp - exp
-nextLevel = currentLevel + 1
+nextLevel = 2
 ##########################################################################
 #buy menu variables
 ##########################################################################
@@ -55,20 +56,50 @@ ironSword = 0
 leatherChest = 0
 ironPlate = 0
 
+##########################################################################
+#leveling things
+##########################################################################
 def levelup():
     global needExp
     needExp = needExp
     if exp >= needExp:
         global currentLevel
         currentLevel = currentLevel
+        global max_health
+        max_health = max_health
+        global nextLevel
+        nextLevel = nextLevel
         
-        needExp = needExp * needExp
         currentLevel = currentLevel + 1
-        print('You have leveled up, you are now level {}.'.format(currentLevel))
+        max_health = max_health + 5
+        needExp = needExp * 2
+        nextLevel = currentLevel + 1
+        print('You have leveled up, you are now level {} your max health has increased to {}.'.format(currentLevel,max_health))
         main_menu()
     else:
         main_menu()
+##########################################################################
+#end leveling things
+##########################################################################
 
+
+##########################################################################
+#monsternames
+##########################################################################
+def monstername():
+    global enemy_name
+    enemy_name = random.choice(enemy_list)
+    
+    if max_health < 25:
+        enemy_name = random.choice(enemy_list)
+        print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
+        fightstart()
+
+    if max_health >= 25:
+        enemy_name = random.choice(enemy_list_2)
+        print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
+        fightstart()
+      
 ##########################################################################
 #start of the game
 ##########################################################################
@@ -85,7 +116,6 @@ def main_menu():
         mainmenu = input("What would you like to do?:")
         if mainmenu in menucommands:
             if mainmenu == "fight":
-                print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
                 global enemy_starting_health
                 enemy_starting_health = enemy_health
                 global goldEarned
@@ -96,7 +126,7 @@ def main_menu():
                 enemy_hit = random.randint(1,int(player_health))
                 global player_state
                 player_state = 'fight'
-                fightstart()
+                monstername()
             if mainmenu == "rest":
                 rest()
             if mainmenu == "status":
@@ -111,7 +141,7 @@ def main_menu():
 #defines the status function in main menu
 def status():
     print('->Current State: {}\n->Current health: {}\n->Kill Count: {}\n->Gold on hand: {}'.format(player_state, player_health,killCount,currentGold))
-    print('->You currently are level: {} and need {} exp to get to level {}.'.format(currentLevel,tilLevel,nextLevel))
+    print('->You currently are level: {} and need {} exp to get to level {}\n->Your max health is {}'.format(currentLevel,needExp,nextLevel,max_health))
     return
 
 #defines the rest/heal function in main menu
@@ -249,6 +279,8 @@ def death():
     killCount = 0
     global player_health
     player_health = 10
+    global max_health
+    max_health = 15
     global currentGold
     currentGold = 0
     global player_state
@@ -269,6 +301,9 @@ def death():
 #debug message, changes as needed.
 def debug():
     print('Just a debug message.')
+    print ('current xp:{}.'.format(exp))
+    print ('xp needed til level: {}.'.format(needExp))
+    print ('Current level: {}.'.format(currentLevel))
     return	
 
 #starts the game after everything is verfied
