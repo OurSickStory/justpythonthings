@@ -98,7 +98,7 @@ def main_menu():
 #defines the status function in main menu
 def status():
     print('->Current State: {}\n->Current health: {}\n->Kill Count: {}\n->Gold on hand: {}'.format(player_state, player_health,killCount,currentGold))
-    print('->You currently are level: {} and need {} exp to get to level {}\n->Your max health is {}'.format(currentLevel,needExp,nextLevel,max_health))
+    print('->You currently are level: {}\n-->You need {} exp to get to level {}.\n->Your max health is {}'.format(currentLevel,needExp,nextLevel,max_health))
     return
 
 #defines the rest/heal function in main menu
@@ -291,7 +291,9 @@ def levelup():
         max_health = max_health + 5
         needExp = needExp * 2
         nextLevel = currentLevel + 1
-        print('You have leveled up, you are now level {} your max health has increased to {}.'.format(currentLevel,max_health))
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        print('You have leveled up, you are now level {}!\nYour max health has increased to {}!'.format(currentLevel,max_health))
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         main_menu()
     else:
         main_menu()
