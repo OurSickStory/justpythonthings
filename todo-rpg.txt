@@ -10,14 +10,14 @@
 health, you can get between 1-starting health
 gold. Should this be reworked? this should
 scale nicely into the game?
-
-#rework max hit for enemy maybe?
-##to at least always be at least one less then
-##current health for flee option?
 ----------------------------------------------
 ############Todo - add - reworks
 ----------------------------------------------
-#rework leveling up - its super basic.
+#rework leveling up - its super basic. (maybe)
+##add max health increase? but based on what?
+##this would also increase monsters?
+##so if monsters health below x name this
+##else named this?
 
 #add flee
 ##if current health is less then enemy --
