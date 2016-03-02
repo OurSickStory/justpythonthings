@@ -2,14 +2,19 @@
 #import the things needed for the game.
 ##########################################################################
 import random
-
 ##########################################################################
-#variables and in game define's
+#menu variables
 ##########################################################################
-commands = ["status", "debug", "fight", "rest", "buy"]
+menucommands = ["status", "debug", "fight", "rest", "buy"]
+##########################################################################
+#player variables
+##########################################################################
 charname = input('What\'s your name?')
 charname = str(charname)
 player_state = 'normal'
+##########################################################################
+#battle  variables
+##########################################################################
 enemy_list = ["chicken", "goblin", "werewolf"]
 enemy_name = random.choice(enemy_list)
 player_health = 10
@@ -18,15 +23,26 @@ enemy_health = random.randint(1,int(player_health))
 enemy_starting_health = 1
 player_hit = random.randint(1,int(enemy_health))
 enemy_hit = random.randint(1,int(player_health))
-max_heal = max_health - player_health
-player_rest = random.randint(1,int(max_heal))
-RestorFight = random.randint(1,100)
 killCount = 0
 currentGold = 0
 goldEarned = random.randint(1,int(enemy_starting_health))
+##########################################################################
+#resting  variables
+##########################################################################
+max_heal = max_health - player_health
+player_rest = random.randint(1,int(max_heal))
+RestorFight = random.randint(1,100)
+##########################################################################
+#buy menu variables
+##########################################################################
 buyMenu = ["buy","list","mainmenu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate"]
 weapons = ["wooden sword", "iron sword"]
 armor = ["leather chest", "iron plate"]
+woodenSword = 0
+ironSword = 0
+leatherChest = 0
+ironPlate = 0
+
 
 ##########################################################################
 #start of the game
@@ -42,7 +58,7 @@ def main_menu():
     mainmenu = ""
     while mainmenu != "quit":
         mainmenu = input("What would you like to do?:")
-        if mainmenu in commands:
+        if mainmenu in menucommands:
             if mainmenu == "fight":
                 print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
                 global enemy_starting_health
@@ -53,7 +69,8 @@ def main_menu():
                 player_hit = random.randint(1,int(enemy_health))
                 global enemy_hit
                 enemy_hit = random.randint(1,int(player_health))
-                state = 'fight'
+                global player_state
+                player_state = 'fight'
                 fightstart()
             if mainmenu == "rest":
                 rest()
@@ -123,7 +140,7 @@ def buy_menu():
                 print('You bought an Iron Plate for 500 gold, your current gold is {}.'.format(currentGold))
     
             if buymenu == "list":
-                print('You can check what weapons and armour are available by typing "weapons" or "armor" in the buy menu.\nYou can only have one of each.\nUse "mainmenu" to return to the main menu.')
+                print('You can check what weapons and armour are available by typing "weapons" or "armor" in the buy menu.\nYou can only have one of each.\nUse "main menu" to return to the main menu.')
 
             if buymenu == "armor":
                 print('Current armor is:\n->Leather chest\n-->Price: 200 gold\n-->Blocks: up to 3 damage.\n->Iron Plate\n-->Price: 500 gold\n-->Blocks up to 5 damage.')
@@ -131,7 +148,7 @@ def buy_menu():
             if buymenu == "weapons":
                 print('Current weapon\'s are:\n->Wooden Sword\n-->Price: 100 gold\n--Adds: up to 3 damage.\nIron Sword\n-->Price: 300 gold\n-->Adds up to 5 damage.')
 
-            if buymenu == "mainmenu":
+            if buymenu == "main menu":
                 return
         else:
             print('That\'s not a valid command, ' + charname + '. Use list to see what\'s available.')
@@ -161,17 +178,6 @@ def fightstart():
         player_health = player(player_health)
     fightstart()
 
-#defines what happens when you win a fight.
-def win():
-    print('->You have killed a {}, dealing {} damage.\n-->You have {} health and gained {} gold.'.format(enemy_name,player_hit,player_health,goldEarned))
-    global enemy_health
-    enemy_health = random.randint(1, int(player_health))
-    global killCount
-    killCount = killCount + 1
-    global currentGold
-    currentGold = currentGold + goldEarned
-    main_menu()
-
 #defines how the player health is going during the fight.
 def player(player_health):
     player_health = player_health - enemy_hit
@@ -190,6 +196,19 @@ def enemy(enemy_health):
         print('Me: You dealt {} damage. {} has {} health left.'.format(player_hit,enemy_name,enemy_health))
         return enemy_health
 
+#defines what happens when you win a fight.
+def win():
+    print('->You have killed a {}, dealing {} damage.\n-->You have {} health and gained {} gold.'.format(enemy_name,player_hit,player_health,goldEarned))
+    global enemy_health
+    enemy_health = random.randint(1, int(player_health))
+    global killCount
+    killCount = killCount + 1
+    global currentGold
+    currentGold = currentGold + goldEarned
+    global player_state
+    player_state = 'normal'
+    main_menu()
+
 #defines what happens on death - reset stats
 def death():
     print('Oh dear..you are dead')
@@ -199,6 +218,8 @@ def death():
     player_health = 10
     global currentGold
     currentGold = 0
+    global player_state
+    player_state = 'normal'
     main_menu()
 ##########################################################################
 #end of fight related things
