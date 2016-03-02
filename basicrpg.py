@@ -56,49 +56,6 @@ ironSword = 0
 leatherChest = 0
 ironPlate = 0
 
-##########################################################################
-#leveling things
-##########################################################################
-def levelup():
-    global needExp
-    needExp = needExp
-    if exp >= needExp:
-        global currentLevel
-        currentLevel = currentLevel
-        global max_health
-        max_health = max_health
-        global nextLevel
-        nextLevel = nextLevel
-        
-        currentLevel = currentLevel + 1
-        max_health = max_health + 5
-        needExp = needExp * 2
-        nextLevel = currentLevel + 1
-        print('You have leveled up, you are now level {} your max health has increased to {}.'.format(currentLevel,max_health))
-        main_menu()
-    else:
-        main_menu()
-##########################################################################
-#end leveling things
-##########################################################################
-
-
-##########################################################################
-#monsternames
-##########################################################################
-def monstername():
-    global enemy_name
-    enemy_name = random.choice(enemy_list)
-    
-    if max_health < 25:
-        enemy_name = random.choice(enemy_list)
-        print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
-        fightstart()
-
-    if max_health >= 25:
-        enemy_name = random.choice(enemy_list_2)
-        print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
-        fightstart()
       
 ##########################################################################
 #start of the game
@@ -213,6 +170,25 @@ def buy_menu():
 #end of buy menu things
 ##########################################################################	
 ##########################################################################
+#monsternames
+##########################################################################
+def monstername():
+    global enemy_name
+    enemy_name = random.choice(enemy_list)
+    
+    if max_health < 25:
+        enemy_name = random.choice(enemy_list)
+        print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
+        fightstart()
+
+    if max_health >= 25:
+        enemy_name = random.choice(enemy_list_2)
+        print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
+        fightstart()
+##########################################################################
+#end of monsters
+##########################################################################
+##########################################################################
 #fight related things
 ##########################################################################
 def fightstart():
@@ -297,13 +273,33 @@ def death():
 ##########################################################################
 #end of fight related things
 ##########################################################################
-
+##########################################################################
+#leveling things
+##########################################################################
+def levelup():
+    global needExp
+    needExp = needExp
+    if exp >= needExp:
+        global currentLevel
+        currentLevel = currentLevel
+        global max_health
+        max_health = max_health
+        global nextLevel
+        nextLevel = nextLevel
+        
+        currentLevel = currentLevel + 1
+        max_health = max_health + 5
+        needExp = needExp * 2
+        nextLevel = currentLevel + 1
+        print('You have leveled up, you are now level {} your max health has increased to {}.'.format(currentLevel,max_health))
+        main_menu()
+    else:
+        main_menu()
+##########################################################################
+#end leveling things
+##########################################################################
 #debug message, changes as needed.
 def debug():
-    print('Just a debug message.')
-    print ('current xp:{}.'.format(exp))
-    print ('xp needed til level: {}.'.format(needExp))
-    print ('Current level: {}.'.format(currentLevel))
     return	
 
 #starts the game after everything is verfied
