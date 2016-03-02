@@ -109,7 +109,7 @@ def main_menu():
 #defines the status function in main menu
 def status():
     print('->Current State: {}\n->Current health: {}\n->Kill Count: {}\n->Gold on hand: {}'.format(player_state, player_health,killCount,currentGold))
-    print('->You currently are level: {} and need {}xp to get to level {}.'.format(currentLevel,tilLevel,nextLevel))
+    print('->You currently are level: {} and need {} exp to get to level {}.'.format(currentLevel,tilLevel,nextLevel))
     return
 
 #defines the rest/heal function in main menu
@@ -236,7 +236,7 @@ def win():
     exp = exp + addXp
     global gainedXP
     gainedXP = addXp
-    print('->You have killed a {}, dealing {} damage.\n-->You have {} health, you gained {} gold and gained {} xp.'.format(enemy_name,player_hit,player_health,goldEarned,gainedXP))
+    print('->You have killed a {}, dealing {} damage.\n-->You have {} health, you gained {} gold and gained {} exp.'.format(enemy_name,player_hit,player_health,goldEarned,gainedXP))
     levelup()
 
 #defines what happens on death - reset stats
