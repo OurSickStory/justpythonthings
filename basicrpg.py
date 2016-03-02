@@ -77,7 +77,6 @@ def rest():
         print('Looks like I\'m not sleeping now!')
         fightstart()
 
-
     if player_health < max_health:
         global max_heal
         max_heal = max_health - player_health
