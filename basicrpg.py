@@ -33,6 +33,16 @@ max_heal = max_health - player_health
 player_rest = random.randint(1,int(max_heal))
 RestorFight = random.randint(1,100)
 ##########################################################################
+#level  variables
+##########################################################################
+exp = 1
+currentLevel = 1
+needExp = 5
+addXp = random.randint(1,int(enemy_starting_health))
+gainedXP = 1
+tilLevel = needExp - exp
+nextLevel = currentLevel + 1
+##########################################################################
 #buy menu variables
 ##########################################################################
 buyMenu = ["buy","list","mainmenu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate"]
@@ -43,6 +53,19 @@ ironSword = 0
 leatherChest = 0
 ironPlate = 0
 
+def levelup():
+    global needExp
+    needExp = needExp
+    if exp >= needExp:
+        global currentLevel
+        currentLevel = currentLevel
+        
+        needExp = needExp * needExp
+        currentLevel = currentLevel + 1
+        print('You have leveled up, you are now level {}.'.format(currentLevel))
+        main_menu()
+    else:
+        main_menu()
 
 ##########################################################################
 #start of the game
@@ -86,6 +109,7 @@ def main_menu():
 #defines the status function in main menu
 def status():
     print('->Current State: {}\n->Current health: {}\n->Kill Count: {}\n->Gold on hand: {}'.format(player_state, player_health,killCount,currentGold))
+    print('->You currently are level: {} and need {}xp to get to level {}.'.format(currentLevel,tilLevel,nextLevel))
     return
 
 #defines the rest/heal function in main menu
@@ -198,7 +222,6 @@ def enemy(enemy_health):
 
 #defines what happens when you win a fight.
 def win():
-    print('->You have killed a {}, dealing {} damage.\n-->You have {} health and gained {} gold.'.format(enemy_name,player_hit,player_health,goldEarned))
     global enemy_health
     enemy_health = random.randint(1, int(player_health))
     global killCount
@@ -207,7 +230,14 @@ def win():
     currentGold = currentGold + goldEarned
     global player_state
     player_state = 'normal'
-    main_menu()
+    global addXp
+    addXp = random.randint(1,int(enemy_starting_health))
+    global exp
+    exp = exp + addXp
+    global gainedXP
+    gainedXP = addXp
+    print('->You have killed a {}, dealing {} damage.\n-->You have {} health, you gained {} gold and gained {} xp.'.format(enemy_name,player_hit,player_health,goldEarned,gainedXP))
+    levelup()
 
 #defines what happens on death - reset stats
 def death():
@@ -220,6 +250,14 @@ def death():
     currentGold = 0
     global player_state
     player_state = 'normal'
+    global enemy_health
+    enemy_health = 1
+    global exp
+    exp = 1
+    global currentLevel
+    currentLevel = 1
+    global needExp
+    needExp = 5
     main_menu()
 ##########################################################################
 #end of fight related things
