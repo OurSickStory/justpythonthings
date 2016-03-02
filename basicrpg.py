@@ -1,3 +1,4 @@
+#just getting started.
 import random
 
 commands = ["status", "debug", "fight", "rest"]
