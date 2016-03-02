@@ -13,6 +13,9 @@ Tweaks
 ----------------------------------------------
 -move recap of the fight to be more visiable.
 -add to the gold, and a way to buy things.
+--gold is currently based on amount of kills,
+could get way out of hand? maybe base on
+enemy starting health?
 ----------------------------------------------
 ===================-----======================
 ----------------------------------------------
