@@ -119,6 +119,10 @@ def rest():
     global RestorFight
     RestorFight = random.randint(1,100)
 
+    if player_health >= max_health:
+        print('You seem to be fully healed')
+        return
+
     if RestorFight >= 75:
         print('->Looks like I\'m not sleeping now!')
         fightstart()
@@ -134,9 +138,6 @@ def rest():
         print('Your health has been restore, your current health is {}.'.format(player_health))
         return
 
-    if player_health >= max_health:
-        print('You seem to be fully healed')
-        return
 ##########################################################################
 #end of main menu things
 ##########################################################################	
