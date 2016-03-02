@@ -7,7 +7,7 @@ import random
 ##########################################################################
 #menu variables
 ###############################################`###########################
-menucommands = ["status", "debug", "fight", "rest", "buy"]
+menucommands = ["status", "debug", "fight", "rest", "buy","flee"]
 ##########################################################################
 #player variables
 ##########################################################################
@@ -29,6 +29,7 @@ enemy_hit = random.randint(1,int(player_health))
 killCount = 0
 currentGold = 0
 goldEarned = random.randint(1,int(enemy_starting_health))
+fleecheck = random.randint(1,100)
 ##########################################################################
 #resting  variables
 ##########################################################################
@@ -56,7 +57,24 @@ ironSword = 0
 leatherChest = 0
 ironPlate = 0
 
-      
+def flee():
+  fleemenu = ""
+  while fleemenu != "quit":
+    if player_health <= enemy_health:
+        flee = input('WARNING::Your health is less then the enemy.\n->Would you like to attempt to flee?\n-->Yes or no:')
+        if flee == "yes":
+            print('->Attempting to flee...')
+            if fleecheck >= 25:
+                print('->You made it out alive!')
+                main_menu()
+            else:
+                print('->You couldn\'t manage to fine a way out!')
+                return
+        if flee == "no":
+            print('->good luck!')
+            return
+    else:
+        return
 ##########################################################################
 #start of the game
 ##########################################################################
@@ -92,6 +110,8 @@ def main_menu():
                 debug()
             if mainmenu == "buy":
                 buy_menu()
+            if mainmenu == "flee":
+                flee()
         else:
             print('That\'s not a valid command, ' + charname + '.')
 
@@ -204,6 +224,9 @@ def fightstart():
     global enemy_hit
     enemy_hit = random.randint(1,int(player_health))
 
+    if player_health <= enemy_health:
+        flee()
+    
 #the while loop for the fight, determines death/win    
     while enemy_health >= 0:
         enemy_health = enemy(enemy_health)
