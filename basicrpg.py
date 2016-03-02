@@ -68,6 +68,10 @@ def main_menu():
                 enemy_starting_health = enemy_health
                 global goldEarned
                 goldEarned = random.randint(1,int(enemy_starting_health))
+                global player_hit
+                player_hit = random.randint(1,int(enemy_health))
+                global enemy_hit
+                enemy_hit = random.randint(1,int(player_health))
                 state = 'fight'
                 fightstart()
             if mainmenu == "rest":
