@@ -1,4 +1,3 @@
-#just getting started.
 import random
 
 commands = ["status", "debug", "fight", "rest"]
@@ -65,6 +64,10 @@ def main_menu():
         if mainmenu in commands:
             if mainmenu == "fight":
                 print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
+                global enemy_starting_health
+                enemy_starting_health = enemy_health
+                global goldEarned
+                goldEarned = random.randint(1,int(enemy_starting_health))
                 state = 'fight'
                 fightstart()
             if mainmenu == "rest":
@@ -104,6 +107,7 @@ def win():
     killCount = killCount + 1
     global currentGold
     currentGold = currentGold + goldEarned
+    print('debug: you earned {} gold.'.format(goldEarned))
     main_menu()
 
 
