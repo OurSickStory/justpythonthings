@@ -1,5 +1,11 @@
+##########################################################################
+#import the things needed for the game.
+##########################################################################
 import random
 
+##########################################################################
+#variables and in game define's
+##########################################################################
 commands = ["status", "debug", "fight", "rest"]
 charname = input('What\'s your name?')
 charname = str(charname)
@@ -19,44 +25,16 @@ killCount = 0
 currentGold = 0
 goldEarned = random.randint(1,int(enemy_starting_health))
 
+##########################################################################
+#start of the game
+##########################################################################
 def char_name():
     print('Welcome to the woods ' + charname + '.')
     main_menu()
 
-def status():
-    print('Current State: {} | Current health: {}. Kill Count: {}. Gold on hand: {}.'.format(player_state, player_health,killCount,currentGold))
-    return
-
-def rest():
-    global player_health
-    player_health = player_health
-    global RestorFight
-    RestorFight = random.randint(1,100)
-
-    if RestorFight >= 75:
-        print('Looks like I\'m not sleeping now!')
-        fightstart()
-
-
-    if player_health < max_health:
-        global max_heal
-        max_heal = max_health - player_health
-        
-        global player_rest
-        player_rest = random.randint(1,int(max_heal))
-        
-        player_health = player_health + player_rest
-        print('Your health has been restore, your current health is {}.'.format(player_health))
-        return
-
-    if player_health >= max_health:
-        print('You seem to be fully healed')
-        return
-
-def debug():
-    print('Just a debug message.')
-    return
-
+##########################################################################
+#main menu and things related to the main menu.
+##########################################################################
 def main_menu():
     mainmenu = ""
     while mainmenu != "quit":
@@ -83,7 +61,46 @@ def main_menu():
         else:
             print('That\'s not a valid command, ' + charname + '.')
 
+#defines the status function in main menu
+def status():
+    print('Current State: {} | Current health: {}. Kill Count: {}. Gold on hand: {}.'.format(player_state, player_health,killCount,currentGold))
+    return
+
+#defines the rest/heal function in main menu
+def rest():
+    global player_health
+    player_health = player_health
+    global RestorFight
+    RestorFight = random.randint(1,100)
+
+    if RestorFight >= 75:
+        print('Looks like I\'m not sleeping now!')
+        fightstart()
+
+
+    if player_health < max_health:
+        global max_heal
+        max_heal = max_health - player_health
+        
+        global player_rest
+        player_rest = random.randint(1,int(max_heal))
+        
+        player_health = player_health + player_rest
+        print('Your health has been restore, your current health is {}.'.format(player_health))
+        return
+
+    if player_health >= max_health:
+        print('You seem to be fully healed')
+        return
+##########################################################################
+#end of main menu things
+##########################################################################	
+
+##########################################################################
+#fight related things
+##########################################################################
 def fightstart():
+#define globals to edit as the fight happens.
     global enemy_health
     enemy_health = enemy(enemy_health)
     global enemy_starting_health
@@ -94,15 +111,15 @@ def fightstart():
     player_hit = random.randint(1,int(enemy_health))
     global enemy_hit
     enemy_hit = random.randint(1,int(player_health))
-    
-        #fight takes place.
 
+#the while loop for the fight, determines death/win    
     while enemy_health >= 0:
         enemy_health = enemy(enemy_health)
     while player_health >= 0:
         player_health = player(player_health)
     fightstart()
 
+#defines what happens when you win a fight.
 def win():
     print('You have killed a {}. Dealing the final {} health.\n->You have {} health.'.format(enemy_name,player_hit,player_health))
     global enemy_health
@@ -114,7 +131,7 @@ def win():
     print('debug: you earned {} gold.'.format(goldEarned))
     main_menu()
 
-
+#defines how the player health is going during the fight.
 def player(player_health):
     player_health = player_health - enemy_hit
     if player_health <= 0:
@@ -123,6 +140,7 @@ def player(player_health):
       print('You took {} damage. You have {} health left.'.format(enemy_hit,player_health))
       return player_health
 
+#defines the enemy health during the fight.
 def enemy(enemy_health):
     enemy_health = enemy_health - player_hit
     if enemy_health <= 0:
@@ -131,6 +149,7 @@ def enemy(enemy_health):
         print('You dealt {} damage. {} has {} health left.'.format(player_hit,enemy_name,enemy_health))
         return enemy_health
 
+#defines what happens on death - reset stats
 def death():
     print('Oh dear..you are dead')
     global killCount
@@ -140,6 +159,15 @@ def death():
     global currentGold
     currentGold = 0
     main_menu()
+##########################################################################
+#end of fight related things
+##########################################################################
 
+#debug message, changes as needed.
+def debug():
+    print('Just a debug message.')
+    return	
+
+#starts the game after everything is verfied
 char_name()
 
