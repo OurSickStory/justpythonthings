@@ -126,7 +126,7 @@ def rest():
         return
 
     if RestorFight >= 75:
-        print('->Looks like I\'m not sleeping now!')
+        print('->Looks like I\'m not sleeping now! A {} has attacked!'.format(enemy_name))
         fightstart()
 
     if player_health < max_health:
