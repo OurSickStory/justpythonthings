@@ -6,7 +6,7 @@ import random
 ##########################################################################
 #variables and in game define's
 ##########################################################################
-commands = ["status", "debug", "fight", "rest"]
+commands = ["status", "debug", "fight", "rest", "buy"]
 charname = input('What\'s your name?')
 charname = str(charname)
 player_state = 'normal'
@@ -24,6 +24,9 @@ RestorFight = random.randint(1,100)
 killCount = 0
 currentGold = 0
 goldEarned = random.randint(1,int(enemy_starting_health))
+buyMenu = ["buy","list","mainmenu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate"]
+weapons = ["wooden sword", "iron sword"]
+armor = ["leather chest", "iron plate"]
 
 ##########################################################################
 #start of the game
@@ -58,6 +61,8 @@ def main_menu():
                 status()
             if mainmenu == "debug":
                 debug()
+            if mainmenu == "buy":
+                buy_menu()
         else:
             print('That\'s not a valid command, ' + charname + '.')
 
@@ -94,7 +99,45 @@ def rest():
 ##########################################################################
 #end of main menu things
 ##########################################################################	
+##########################################################################
+#buy menu and things related to the buy menu.
+##########################################################################
+def buy_menu():
+    buymenu = ""
+    while buymenu != "quit":
+        buymenu = input('What would you like to buy?:')
+        if buymenu in buyMenu:
+            if buymenu == "buy":
+                print('Buy what? You didn\'t list anything. ex: buy wooden sword')
+                
+            if buymenu == "buy wooden sword":
+                print('You bought a Wooden Sword for 100 gold, your current gold is {}.'.format(currentGold))
+                
+            if buymenu == "buy iron sword":
+                print('You bought an Iron Sword for 300 gold, your current gold is {}.'.format(currentGold))
 
+            if buymenu == "buy leather chest":
+                print('You bought a Leather Chest for 200 gold, your current gold is {}.'.format(currentGold))
+
+            if buymenu == "buy iron plate":
+                print('You bought an Iron Plate for 500 gold, your current gold is {}.'.format(currentGold))
+    
+            if buymenu == "list":
+                print('You can check what weapons and armour are available by typing "weapons" or "armor" in the buy menu.\nYou can only have one of each.\nUse "mainmenu" to return to the main menu.')
+
+            if buymenu == "armor":
+                print('Current armor is:\n->Leather chest\n-->Price: 200 gold\n-->Blocks: up to 3 damage.\n->Iron Plate\n-->Price: 500 gold\n-->Blocks up to 5 damage.')
+            
+            if buymenu == "weapons":
+                print('Current weapon\'s are:\n->Wooden Sword\n-->Price: 100 gold\n--Adds: up to 3 damage.\nIron Sword\n-->Price: 300 gold\n-->Adds up to 5 damage.')
+
+            if buymenu == "mainmenu":
+                return
+        else:
+            print('That\'s not a valid command, ' + charname + '. Use list to see what\'s available.')
+##########################################################################
+#end of buy menu things
+##########################################################################	
 ##########################################################################
 #fight related things
 ##########################################################################
