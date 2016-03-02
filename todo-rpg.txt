@@ -37,10 +37,6 @@ total enemy damage and total player damage?
 #add sell menu
 ##price is reduced to half of what you paid.
 
-#add flee
-##if current health is less then enemy --
-##would you like to flee?
-
 #finish the buy menu and actually add weapons
 ----------------------------------------------
 #############issues - tickets
