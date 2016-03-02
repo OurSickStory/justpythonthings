@@ -1,5 +1,7 @@
 ##########################################################################
 #import the things needed for the game.
+#You can PLAY the game here: http://sobieski.codes/rpg/
+#if you just want to have some giggles without downloading/looking at code
 ##########################################################################
 import random
 ##########################################################################
