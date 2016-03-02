@@ -3,9 +3,6 @@
 ----------------------------------------------
 #fix enemydamagedone
 ##enemydamagedone = enemydamagedone + player_hit
-
-
-
 ----------------------------------------------
 ################Tweaks
 ----------------------------------------------
@@ -13,26 +10,22 @@
 health, you can get between 1-starting health
 gold. Should this be reworked? this should
 scale nicely into the game?
+
 #rework max hit for enemy maybe?
 ##to at least always be at least one less then
 ##current health for flee option?
-
-
 ----------------------------------------------
 ############Todo - add - reworks
 ----------------------------------------------
 #rework leveling up - its super basic.
+
 #add flee
 ##if current health is less then enemy --
 ##would you like to flee?
 
-
-
+#finish the buy menu and actually add weapons
 ----------------------------------------------
 #############issues - tickets
 ----------------------------------------------
 #all tickets complete
-
-
-
 ----------------------------------------------
