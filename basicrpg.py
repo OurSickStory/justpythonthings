@@ -49,7 +49,7 @@ nextLevel = 2
 ##########################################################################
 #buy menu variables
 ##########################################################################
-buyMenu = ["buy","help","mainmenu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate"]
+buyMenu = ["buy","help","main menu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate"]
 weapons = ["wooden sword", "iron sword"]
 armor = ["leather chest", "iron plate"]
 woodenSword = 0
@@ -166,10 +166,11 @@ def buy_menu():
 
             if buymenu == "armor":
                 print('Current armor is:\n->Leather chest\n-->Price: 200 gold\n-->Blocks: up to 3 damage.\n->Iron Plate\n-->Price: 500 gold\n-->Blocks up to 5 damage.')
-            
+                print('Type "buy item name" to buy.')            
             if buymenu == "weapons":
                 print('Current weapon\'s are:\n->Wooden Sword\n-->Price: 100 gold\n--Adds: up to 3 damage.\nIron Sword\n-->Price: 300 gold\n-->Adds up to 5 damage.')
-
+                print('Type "buy item name" to buy.')
+                
             if buymenu == "main menu":
                 return
         else:
@@ -256,7 +257,7 @@ def win():
     exp = exp + addXp
     global gainedXP
     gainedXP = addXp
-    print('\n->You have killed a {}, dealing {} damage.\n-->You have {} health, you gained {} gold and gained {} exp.'.format(enemy_name,player_hit,player_health,goldEarned,gainedXP))
+    print('\n->You have killed a {}, dealing {} damage.\n-->You have {} health, you gained {} gold and gained {} exp.\n'.format(enemy_name,player_hit,player_health,goldEarned,gainedXP))
     levelup()
 
 #defines what happens on death - reset stats
