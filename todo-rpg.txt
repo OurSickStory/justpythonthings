@@ -16,6 +16,9 @@ it too much
 #maybe add food?
 eat = heal.
 
+#some type of conditions met 
+to meet wandering merchent.
+
 #tweak combat.  
 ##at the end show current health +  
 total enemy damage and total player damage?  
