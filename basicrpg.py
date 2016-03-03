@@ -7,7 +7,7 @@ import random
 ##########################################################################
 #menu variables
 ###############################################`###########################
-menucommands = ["status", "debug", "fight", "rest", "buy", "help", "inventory"]
+menucommands = ["status", "debug", "fight", "rest", "buy", "help", "inventory", "eat apple"]
 ##########################################################################
 #player variables
 ##########################################################################
@@ -30,7 +30,7 @@ enemy_starting_health = 1
 player_hit = random.randint(0,int(enemy_health))
 enemy_hit = random.randint(0,int(player_health))
 killCount = 0
-currentGold = 0
+currentGold = 100
 goldEarned = random.randint(1,int(enemy_starting_health))
 fleecheck = random.randint(1,100)
 ##########################################################################
@@ -52,9 +52,10 @@ nextLevel = 2
 ##########################################################################
 #buy menu variables
 ##########################################################################
-buyMenu = ["buy","help","main menu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate", "necklaces", "buy amulet of life"]
+buyMenu = ["food", "buy","help","main menu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate", "necklaces", "buy amulet of life", "buy apple"]
 weapons = ["wooden sword", "iron sword"]
 armor = ["leather chest", "iron plate"]
+food = ["apple"]
 woodenSword = 0
 ironSword = 0
 leatherChest = 0
@@ -62,8 +63,12 @@ ironPlate = 0
 amuletLife = 0
 haveweapon = 0
 havearmor = 0
+havefood = 0
+apple = 0
 ininventory = 0
 
+
+	    
 ##########################################################################
 #start of the game
 ##########################################################################
@@ -104,6 +109,8 @@ def main_menu():
                 buy_menu()
             if mainmenu == "help":
                 help()
+            if mainmenu == "eat apple":
+                eatapple()
         else:
             print('That\'s not a valid command, ' + charname + '.')
 
@@ -149,7 +156,11 @@ def inventory():
     if ininventory == 0:
         print('You have nothing in your inventory..')
     if ininventory >= 1:
-        print('You currently have {} things in your inventory.'.format(inventory))
+        if ininventory == 1:
+            print('You currently only have one thing in your inventory')
+        else:
+            print('You currently have {} things in your inventory.'.format(ininventory))
+                
         if woodenSword == 1:
             print('You currently have a Wooden Sword.')
         if ironSword == 1:
@@ -160,11 +171,9 @@ def inventory():
             print('You currently have an Iron Plate.')
         if amuletLife >= 1:
             print('You currently have {} amulets.'.format(amuletLife))
+        if apple >= 1:
+            print('You currently have {} apples.'.format(apple))
     return
-      
-##########################################################################
-#end of main menu things
-##########################################################################	
 ##########################################################################
 #buy menu and things related to the buy menu.
 ##########################################################################
@@ -174,7 +183,9 @@ def buy_menu():
     global ininventory
     ininventory = ininventory
     global amuletLife
-    amuletLife=amuletLife
+    amuletLife = amuletLife
+    global apple
+    apple = apple
     
     buymenu = ""
     while buymenu != "quit":
@@ -206,7 +217,20 @@ def buy_menu():
                 
                 else:
                    print('You don\'t have enough gold, you currently have {} gold.'.format(currentGold))
-        
+                   
+            if buymenu == "buy apple":
+                if currentGold >= 50:
+                    if apple == 5:
+                        print('You have enough apples!')
+                    if apple < 5:
+                        currentGold = currentGold - 50
+                        apple = apple + 1
+                        ininventory = ininventory + 1
+                        print('You purchased an apple for 50 gold, you currently have {} gold.'.format(currentGold))
+                else:
+                    print('You don\'t have enough gold, you currently have {} gold.'.format(currentGold))
+
+                
             if buymenu == "help":
                 print('\nYou can check what weapons and armour are available by typing "weapons" or "armor" in the buy menu.\nYou can only have one of each.\nUse "main menu" to return to the main menu.')
 
@@ -217,6 +241,9 @@ def buy_menu():
             if buymenu == "weapons":
                 print('Current weapon\'s are:\n->Wooden Sword\n-->Price: 100 gold\n--Adds: up to 3 damage.\nIron Sword\n-->Price: 300 gold\n-->Adds up to 5 damage.')
                 print('Type "buy item name" to buy.')
+
+            if buymenu == "food":
+                print('Current foods are\n->Apple\n-->Price: 50 gold\n-->Heals 5 health.')
                 
             if buymenu == "necklaces":
                 print('Current necklaces are:\n->Amulet of life\n->Price: 100 gold\n->Has a chance to escape a critcal hit.')
@@ -226,9 +253,6 @@ def buy_menu():
                 return
         else:
             print('That\'s not a valid command, ' + charname + '. Use help to see what\'s available.')
-##########################################################################
-#end of buy menu things
-##########################################################################	
 ##########################################################################
 #amulet of life define
 ##########################################################################
@@ -247,7 +271,31 @@ def amulet():
         main_menu()
     if amuletLife == 0:
         death()
-
+##########################################################################
+#eat da apple define
+##########################################################################
+def eatapple():
+    global player_health
+    player_health = player_health
+    global apple
+    apple = apple
+    global ininventory
+    ininventory = ininventory
+    global max_health
+    max_health = max_health
+    if apple >= 1:
+        if player_health <= max_health: 
+            player_health = player_health + 5
+            apple = apple - 1
+            ininventory = ininventory - 1
+            print('You have eaten an apple and restored some health!\n->Current health {}.'.format(player_health))
+            return
+        else:
+            print('Your health is already full..')
+            return
+    if apple == 0:
+        print('you don\'t have an apple to eat?')
+        return		
 ##########################################################################
 #monsternames
 ##########################################################################
@@ -264,9 +312,6 @@ def monstername():
         enemy_name = random.choice(enemy_list_2)
         print('\nYou have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
         fightstart()
-##########################################################################
-#end of monsters
-##########################################################################
 ##########################################################################
 #fight related things
 ##########################################################################
@@ -402,9 +447,6 @@ def flee():
     else:
         return
 ##########################################################################
-#end of fight related things
-##########################################################################
-##########################################################################
 #leveling things
 ##########################################################################
 def levelup():
@@ -429,14 +471,16 @@ def levelup():
     else:
         main_menu()
 ##########################################################################
-#end leveling things
+#end of things.
 ##########################################################################
 #debug message, changes as needed.
 def debug():
     print('This is used during testing..\n')
+    print('current apples {}.'.format(apple))
     return	
 
 #starts the game after everything is verfied
 char_name()
+
 
 
