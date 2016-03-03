@@ -363,14 +363,21 @@ def fightstart():
     global fleestatus
     fleestatus = fleestatus
     
-    if player_health >= 0:
-        playerHealth() 
-        
-    if player_health >= enemy_hit:
+    if enemy_hit >= player_health:
         amulet()
+        
     if player_health <= enemy_health:
         if fleestatus == "yes":
             flee()
+        else:
+            pass
+    
+    if player_health >= 0:
+        playerHealth()
+
+
+
+
 
 #defines how the player health is going during the fight.
 def playerHealth():
