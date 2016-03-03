@@ -218,7 +218,7 @@ def fightstart():
         fightstart()
     
     if enemy_hit == 0:
-        print('-->{} miss you!'.format(enemy_name))
+        print('-->{} missed you!'.format(enemy_name))
         fightstart()
 
     if player_health <= enemy_health:
@@ -344,6 +344,7 @@ def levelup():
 ##########################################################################
 #debug message, changes as needed.
 def debug():
+    print('This is used during testing..\n')
     return	
 
 #starts the game after everything is verfied
