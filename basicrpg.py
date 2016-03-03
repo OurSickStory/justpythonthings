@@ -19,6 +19,9 @@ player_state = 'normal'
 ##########################################################################
 enemy_list = ["chicken", "goblin", "werewolf"]
 enemy_list_2 = ["boar", "lion", "lizard"]
+enemy_list_3 = ["fairy", "unicorn", "troll"]
+enemy_list_4 = ["baby dragon", "centar", "sphynx"]
+enemy_list_5 = ["phoenix", "king dragon"]
 enemy_name = random.choice(enemy_list)
 player_health = 10
 max_health = 15
@@ -435,4 +438,5 @@ def debug():
 
 #starts the game after everything is verfied
 char_name()
+
 
