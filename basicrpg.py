@@ -7,7 +7,7 @@ import random
 ##########################################################################
 #menu variables
 ###############################################`###########################
-menucommands = ["status", "debug", "fight", "rest", "buy","flee"]
+menucommands = ["status", "debug", "fight", "rest", "buy","help"]
 ##########################################################################
 #player variables
 ##########################################################################
@@ -49,7 +49,7 @@ nextLevel = 2
 ##########################################################################
 #buy menu variables
 ##########################################################################
-buyMenu = ["buy","list","mainmenu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate"]
+buyMenu = ["buy","help","mainmenu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate"]
 weapons = ["wooden sword", "iron sword"]
 armor = ["leather chest", "iron plate"]
 woodenSword = 0
@@ -57,29 +57,11 @@ ironSword = 0
 leatherChest = 0
 ironPlate = 0
 
-def flee():
-  fleemenu = ""
-  while fleemenu != "quit":
-    if player_health <= enemy_health:
-        flee = input('WARNING::Your health is less then the enemy.\n->Would you like to attempt to flee?\n-->Yes or no:')
-        if flee == "yes":
-            print('->Attempting to flee...')
-            if fleecheck >= 25:
-                print('->You made it out alive!')
-                main_menu()
-            else:
-                print('->You couldn\'t manage to fine a way out!')
-                return
-        if flee == "no":
-            print('->good luck!')
-            return
-    else:
-        return
 ##########################################################################
 #start of the game
 ##########################################################################
 def char_name():
-    print('Welcome to the woods ' + charname + '.')
+    print('Welcome to the woods ' + charname + '.\nUse "help" to get started.\n')
     main_menu()
 
 ##########################################################################
@@ -110,10 +92,15 @@ def main_menu():
                 debug()
             if mainmenu == "buy":
                 buy_menu()
-            if mainmenu == "flee":
-                flee()
+            if mainmenu == "help":
+                help()
         else:
-            print('That\'s not a valid command, ' + charname + '.')
+            print('That\'s not a valid command, ' + charname + '.\n')
+
+#defines the help menu
+def help():
+    print('Usable commands are:\n->Help\n->Rest\n->Status\n->Buy (currently in progress)\n->Fight\n->Debug (only used for testing)\n')
+    return
 
 #defines the status function in main menu
 def status():
@@ -144,7 +131,7 @@ def rest():
         player_rest = random.randint(1,int(max_heal))
         
         player_health = player_health + player_rest
-        print('Your health has been restore, your current health is {}.'.format(player_health))
+        print('Your health has been restore, your current health is {}.\n'.format(player_health))
         return
 
 ##########################################################################
@@ -173,7 +160,7 @@ def buy_menu():
             if buymenu == "buy iron plate":
                 print('You bought an Iron Plate for 500 gold, your current gold is {}.'.format(currentGold))
     
-            if buymenu == "list":
+            if buymenu == "help":
                 print('You can check what weapons and armour are available by typing "weapons" or "armor" in the buy menu.\nYou can only have one of each.\nUse "main menu" to return to the main menu.')
 
             if buymenu == "armor":
@@ -198,12 +185,12 @@ def monstername():
     
     if max_health < 25:
         enemy_name = random.choice(enemy_list)
-        print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
+        print('\nYou have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
         fightstart()
 
     if max_health >= 25:
         enemy_name = random.choice(enemy_list_2)
-        print('You have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
+        print('\nYou have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
         fightstart()
 ##########################################################################
 #end of monsters
@@ -268,12 +255,12 @@ def win():
     exp = exp + addXp
     global gainedXP
     gainedXP = addXp
-    print('->You have killed a {}, dealing {} damage.\n-->You have {} health, you gained {} gold and gained {} exp.'.format(enemy_name,player_hit,player_health,goldEarned,gainedXP))
+    print('\n->You have killed a {}, dealing {} damage.\n-->You have {} health, you gained {} gold and gained {} exp.'.format(enemy_name,player_hit,player_health,goldEarned,gainedXP))
     levelup()
 
 #defines what happens on death - reset stats
 def death():
-    print('Oh dear..you are dead')
+    print('\nOh dear..you are dead\n')
     global killCount
     killCount = 0
     global player_health
@@ -293,6 +280,26 @@ def death():
     global needExp
     needExp = 5
     main_menu()
+
+#flee menu
+def flee():
+  fleemenu = ""
+  while fleemenu != "quit":
+    if player_health <= enemy_health:
+        flee = input('\nWARNING::Your health is less then the enemy.\n->Would you like to attempt to flee?\n-->Yes or no:')
+        if flee == "yes":
+            print('->Attempting to flee...\n')
+            if fleecheck >= 25:
+                print('->You made it out alive!')
+                main_menu()
+            else:
+                print('->You couldn\'t manage to fine a way out!')
+                return
+        if flee == "no":
+            print('->good luck!')
+            return
+    else:
+        return
 ##########################################################################
 #end of fight related things
 ##########################################################################
@@ -314,9 +321,9 @@ def levelup():
         max_health = max_health + 5
         needExp = needExp * 2
         nextLevel = currentLevel + 1
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        print('You have leveled up, you are now level {}!\nYour max health has increased to {}!'.format(currentLevel,max_health))
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        print('\n###########################################')
+        print('#You have leveled up, you are now level {}!#\n#Your max health has increased to {}!     #'.format(currentLevel,max_health))
+        print('###########################################\n')
         main_menu()
     else:
         main_menu()
