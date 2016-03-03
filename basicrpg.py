@@ -91,6 +91,7 @@ def main_menu():
             if mainmenu == "debug":
                 debug()
             if mainmenu == "buy":
+                print('Use "help" to get started.')
                 buy_menu()
             if mainmenu == "help":
                 help()
@@ -99,7 +100,7 @@ def main_menu():
 
 #defines the help menu
 def help():
-    print('Usable commands are:\n->Help\n->Rest\n->Status\n->Buy (currently in progress)\n->Fight\n->Debug (only used for testing)\n')
+    print('\nUsable commands are:\n->Help\n->Rest\n->Status\n->Buy (currently in progress)\n->Fight\n->Debug (only used for testing)\n')
     return
 
 #defines the status function in main menu
@@ -143,7 +144,7 @@ def rest():
 def buy_menu():
     buymenu = ""
     while buymenu != "quit":
-        buymenu = input('What would you like to buy?:')
+        buymenu = input('\nWhat would you like to buy?:')
         if buymenu in buyMenu:
             if buymenu == "buy":
                 print('Buy what? You didn\'t list anything. ex: buy wooden sword')
@@ -161,7 +162,7 @@ def buy_menu():
                 print('You bought an Iron Plate for 500 gold, your current gold is {}.'.format(currentGold))
     
             if buymenu == "help":
-                print('You can check what weapons and armour are available by typing "weapons" or "armor" in the buy menu.\nYou can only have one of each.\nUse "main menu" to return to the main menu.')
+                print('\nYou can check what weapons and armour are available by typing "weapons" or "armor" in the buy menu.\nYou can only have one of each.\nUse "main menu" to return to the main menu.')
 
             if buymenu == "armor":
                 print('Current armor is:\n->Leather chest\n-->Price: 200 gold\n-->Blocks: up to 3 damage.\n->Iron Plate\n-->Price: 500 gold\n-->Blocks up to 5 damage.')
@@ -172,7 +173,7 @@ def buy_menu():
             if buymenu == "main menu":
                 return
         else:
-            print('That\'s not a valid command, ' + charname + '. Use list to see what\'s available.')
+            print('That\'s not a valid command, ' + charname + '. Use help to see what\'s available.')
 ##########################################################################
 #end of buy menu things
 ##########################################################################	
