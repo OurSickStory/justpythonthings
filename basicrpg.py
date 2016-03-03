@@ -4,6 +4,7 @@
 #if you just want to have some giggles without downloading/looking at code
 ##########################################################################
 import random
+import math
 ##########################################################################
 #menu variables
 ###############################################`###########################
@@ -27,12 +28,17 @@ player_health = 10
 max_health = 15
 enemy_health = random.randint(1,int(player_health))
 enemy_starting_health = 1
-player_hit = random.randint(0,int(enemy_health))
-enemy_hit = random.randint(0,int(player_health))
+player_damage_percent = math.ceil(enemy_starting_health * .50)
+player_max_hit = random.randint(0,int(player_damage_percent))
+player_hit = random.randint(0,int(player_max_hit))
+enemy_damage_percent = math.ceil(max_health * .25)
+enemy_max_hit = random.randint(0,int(enemy_damage_percent))
+enemy_hit = random.randint(0,int(enemy_max_hit))
 killCount = 0
 currentGold = 100
 goldEarned = random.randint(1,int(enemy_starting_health))
 fleecheck = random.randint(1,100)
+fleestatus = 'yes'
 ##########################################################################
 #resting  variables
 ##########################################################################
@@ -63,12 +69,10 @@ ironPlate = 0
 amuletLife = 0
 haveweapon = 0
 havearmor = 0
-havefood = 0
 apple = 0
 ininventory = 0
 
 
-	    
 ##########################################################################
 #start of the game
 ##########################################################################
@@ -89,10 +93,20 @@ def main_menu():
                 enemy_starting_health = enemy_health
                 global goldEarned
                 goldEarned = random.randint(1,int(enemy_starting_health))
+                global max_health
+                max_health = max_health
+                global player_damage_percent
+                player_damage_percent = math.ceil(enemy_starting_health * .50)
+                global player_max_hit
+                player_max_hit = random.randint(0,int(player_damage_percent))
+                global enemy_damage_percent
+                enemy_damage_percent = math.ceil(max_health * .25)
+                global enemy_max_hit
+                enemy_max_hit = random.randint(0,int(enemy_damage_percent))                
                 global player_hit
-                player_hit = random.randint(1,int(enemy_health))
+                player_hit = random.randint(0,int(player_max_hit))
                 global enemy_hit
-                enemy_hit = random.randint(1,int(player_health))
+                enemy_hit = random.randint(0,int(enemy_max_hit))
                 global player_state
                 player_state = 'fight'
                 monstername()
@@ -137,7 +151,7 @@ def rest():
         return
 
     if RestorFight >= 75:
-        print('->Looks like I\'m not sleeping now! A {} has attacked!'.format(enemy_name))
+        print('\n->Looks like I\'m not sleeping now! A {} has attacked! He has {} health.'.format(enemy_name,enemy_health))
         fightstart()
 
     if player_health < max_health:
@@ -158,6 +172,7 @@ def inventory():
     if ininventory >= 1:
         if ininventory == 1:
             print('You currently only have one thing in your inventory')
+
         else:
             print('You currently have {} things in your inventory.'.format(ininventory))
                 
@@ -174,6 +189,10 @@ def inventory():
         if apple >= 1:
             print('You currently have {} apples.'.format(apple))
     return
+      
+##########################################################################
+#end of main menu things
+##########################################################################	
 ##########################################################################
 #buy menu and things related to the buy menu.
 ##########################################################################
@@ -253,27 +272,8 @@ def buy_menu():
                 return
         else:
             print('That\'s not a valid command, ' + charname + '. Use help to see what\'s available.')
-##########################################################################
-#amulet of life define
-##########################################################################
-def amulet():
-    global amuletLife
-    amuletLife = amuletLife
-    global player_health
-    player_health = player_health
-    global ininventory
-    ininventory = ininventory
-    if amuletLife >= 1:
-        amuletLife = amuletLife - 1
-        ininventory = ininventory - 1
-        player_health = player_health + 1
-        print('\nYou have used an amulet to escape death!\nYou have {} amulet(s) left.'.format(amuletLife))
-        main_menu()
-    if amuletLife == 0:
-        death()
-##########################################################################
-#eat da apple define
-##########################################################################
+            
+#eat da apple.
 def eatapple():
     global player_health
     player_health = player_health
@@ -295,7 +295,29 @@ def eatapple():
             return
     if apple == 0:
         print('you don\'t have an apple to eat?')
-        return		
+        return
+##########################################################################
+#end of buy menu things
+##########################################################################	
+##########################################################################
+#amulet of life define
+##########################################################################
+def amulet():
+    global amuletLife
+    amuletLife = amuletLife
+    global player_health
+    player_health = player_health
+    global ininventory
+    ininventory = ininventory
+    if amuletLife >= 1:
+        amuletLife = amuletLife - 1
+        ininventory = ininventory - 1
+        player_health = player_health + 1
+        print('\nYou have used an amulet to escape death!\nYou have {} amulet(s) left.'.format(amuletLife))
+        main_menu()
+    if amuletLife == 0:
+        death()
+
 ##########################################################################
 #monsternames
 ##########################################################################
@@ -313,61 +335,77 @@ def monstername():
         print('\nYou have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
         fightstart()
 ##########################################################################
+#end of monsters
+##########################################################################
+##########################################################################
 #fight related things
 ##########################################################################
 def fightstart():
 #define globals to edit as the fight happens.
-    global enemy_health
-    enemy_health = enemy(enemy_health)
-    global enemy_starting_health
-    enemy_starting_health = enemy_health
     global player_health
-    player_health = player(player_health)
+    player_health = player_health
+    global enemy_health
+    enemy_health = enemy_health
+    global max_health
+    max_health = max_health
+    global player_damage_percent
+    player_damage_percent = math.ceil(enemy_starting_health * .50)
+    global player_max_hit
+    player_max_hit = random.randint(0,int(player_damage_percent))
+    global enemy_damage_percent
+    enemy_damage_percent = math.ceil(max_health * .25)
+    global enemy_max_hit
+    enemy_max_hit = random.randint(0,int(enemy_damage_percent))                
     global player_hit
-    player_hit = random.randint(0,int(enemy_health))
+    player_hit = random.randint(0,int(player_max_hit))
     global enemy_hit
-    enemy_hit = random.randint(0,int(player_health))
+    enemy_hit = random.randint(0,int(enemy_max_hit))
+    global fleestatus
+    fleestatus = fleestatus
+    
+    if player_health >= 0:
+        playerHealth() 
+        
+    if player_health >= enemy_hit:
+        amulet()
+    if player_health <= enemy_health:
+        if fleestatus == "yes":
+            flee()
+
+#defines how the player health is going during the fight.
+def playerHealth():
+    global player_health
+    player_health = player_health - enemy_hit
+
+    if player_health <= 0:
+        death()
+        
+    else:
+        if enemy_hit == 0:
+            print('-->{} missed you!'.format(enemy_name))
+            enemyHealth()
+        else:
+            print('Me:You took {} damage, you have {} health left.'.format(enemy_hit,player_health))
+            enemyHealth() 
+        
+#defines the enemy health during the fight.
+def enemyHealth():
+    global enemy_health
+    enemy_health = enemy_health - player_hit
+
+    if enemy_health <= 0:
+        win()
     
     if player_hit == 0:
         print('-->You missed the {}!'.format(enemy_name))
         fightstart()
-    
-    if enemy_hit == 0:
-        print('-->{} missed you!'.format(enemy_name))
+    else:
+        print('Me:You dealt {} damage, {} has {} health left.'.format(player_hit,enemy_name,enemy_health))
         fightstart()
-
-    if player_health <= enemy_health:
-        flee()
-    
-    if player_health >= enemy_hit:
-        amulet()
         
-#the while loop for the fight, determines death/win    
-    while enemy_health >= 0:
-        enemy_health = enemy(enemy_health)
-    while player_health >= 0:
-        player_health = player(player_health)
-    fightstart()
-
-#defines how the player health is going during the fight.
-def player(player_health):
-    player_health = player_health - enemy_hit
- 
-    if player_health <= 0:
-        death()
-    else:
-      print('Me: You took {} damage. You have {} health left.'.format(enemy_hit,player_health))
-      return player_health
-
-#defines the enemy health during the fight.
-def enemy(enemy_health):
-    enemy_health = enemy_health - player_hit
         
-    if enemy_health <= 0:
-        win()
-    else:
-        print('Me: You dealt {} damage. {} has {} health left.'.format(player_hit,enemy_name,enemy_health))
-        return enemy_health
+
+
 
 #defines what happens when you win a fight.
 def win():
@@ -385,6 +423,8 @@ def win():
     exp = exp + addXp
     global gainedXP
     gainedXP = addXp
+    global fleestatus
+    fleestatus = 'yes'
     print('\n->You have killed a {}, dealing {} damage.\n-->You have {} health, you gained {} gold and gained {} exp.'.format(enemy_name,player_hit,player_health,goldEarned,gainedXP))
     levelup()
 
@@ -429,6 +469,8 @@ def death():
 
 #flee menu
 def flee():
+  global fleestatus
+  fleestatus = fleestatus
   fleemenu = ""
   while fleemenu != "quit":
     if player_health <= enemy_health:
@@ -437,15 +479,20 @@ def flee():
             print('->Attempting to flee...')
             if fleecheck >= 25:
                 print('->You made it out alive!')
+                fleestatus = 'yes'
                 main_menu()
             else:
                 print('->You couldn\'t manage to fine a way out!')
                 return
         if flee == "no":
+            fleestatus = 'no'
             print('->good luck!')
             return
     else:
         return
+##########################################################################
+#end of fight related things
+##########################################################################
 ##########################################################################
 #leveling things
 ##########################################################################
@@ -471,12 +518,15 @@ def levelup():
     else:
         main_menu()
 ##########################################################################
-#end of things.
+#end leveling things
 ##########################################################################
 #debug message, changes as needed.
 def debug():
     print('This is used during testing..\n')
-    print('current apples {}.'.format(apple))
+    print('enemy health {} enemy start health {}.'.format(enemy_health,enemy_starting_health))
+    print('enemy max hit {} player max hit {}.'.format(enemy_max_hit,player_max_hit))
+    print('enemy hit {} player hit {}.'.format(enemy_hit,player_hit))
+    print('player damage percent {} enemy damage percent {}.'.format(player_damage_percent,enemy_damage_percent))
     return	
 
 #starts the game after everything is verfied
