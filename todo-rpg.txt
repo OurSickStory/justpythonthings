@@ -1,9 +1,4 @@
 ----------------------------------------------  
-###################Fixes  
-----------------------------------------------  
-#fix enemydamagedone  
-##enemydamagedone = enemydamagedone + player_hit  
-----------------------------------------------  
 ################Tweaks  
 ----------------------------------------------  
 #enemy damage is WAY to high. die wayyyy to often.
@@ -13,21 +8,33 @@ it too much
 #player max hit 50% of enemy's start health
 #if fight is longer then x just print recap/
 
-#maybe add food?
-eat = heal.
-
 #some type of conditions met 
 to meet wandering merchent.
+
+#more foods!
 
 #tweak combat.  
 ##at the end show current health +  
 total enemy damage and total player damage?  
 ----------------------------------------------  
-############Todo - add - reworks  
+############add
 ----------------------------------------------  
+#auto attacks (maybe 5?
+##perk buy more auto attacks
+##not sure how breaks will work here yet though.
+
 #add sell menu  
 ##price is reduced to half of what you paid.  
-  
+
+#add enemydamagedone  
+##enemydamagedone = enemydamagedone + player_hit
+##this will be for long battles
+
+#quests?
+
+#wandering merchant 
+##if level = x chance to merchant() during fight
+
 #finish the buy menu and actually add weapons  
 ----------------------------------------------  
 #############issues - tickets  
