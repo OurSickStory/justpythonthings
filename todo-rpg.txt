@@ -13,6 +13,8 @@ it too much
 #player max hit 50% of enemy's start health
 #if fight is longer then x just print recap/
 
+#maybe add food?
+eat = heal.
 
 #tweak combat.  
 ##at the end show current health +  
