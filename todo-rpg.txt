@@ -9,6 +9,10 @@
 #enemy damage is WAY to high. die wayyyy to often.
 need to find a way to lower it without hindering
 it too much
+#enemy max hit 25% of players max health
+#player max hit 50% of enemy's start health
+#if fight is longer then x just print recap/
+
 
 #tweak combat.  
 ##at the end show current health +  
