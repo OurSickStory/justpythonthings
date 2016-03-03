@@ -24,8 +24,8 @@ player_health = 10
 max_health = 15
 enemy_health = random.randint(1,int(player_health))
 enemy_starting_health = 1
-player_hit = random.randint(1,int(enemy_health))
-enemy_hit = random.randint(1,int(player_health))
+player_hit = random.randint(0,int(enemy_health))
+enemy_hit = random.randint(0,int(player_health))
 killCount = 0
 currentGold = 0
 goldEarned = random.randint(1,int(enemy_starting_health))
@@ -117,7 +117,7 @@ def rest():
     RestorFight = random.randint(1,100)
 
     if player_health >= max_health:
-        print('You seem to be fully healed')
+        print('You seem to be fully healed\n')
         return
 
     if RestorFight >= 75:
@@ -209,9 +209,17 @@ def fightstart():
     global player_health
     player_health = player(player_health)
     global player_hit
-    player_hit = random.randint(1,int(enemy_health))
+    player_hit = random.randint(0,int(enemy_health))
     global enemy_hit
-    enemy_hit = random.randint(1,int(player_health))
+    enemy_hit = random.randint(0,int(player_health))
+    
+    if player_hit == 0:
+        print('-->You missed the {}!'.format(enemy_name))
+        fightstart()
+    
+    if enemy_hit == 0:
+        print('-->{} miss you!'.format(enemy_name))
+        fightstart()
 
     if player_health <= enemy_health:
         flee()
@@ -226,6 +234,7 @@ def fightstart():
 #defines how the player health is going during the fight.
 def player(player_health):
     player_health = player_health - enemy_hit
+ 
     if player_health <= 0:
         death()
     else:
@@ -235,6 +244,7 @@ def player(player_health):
 #defines the enemy health during the fight.
 def enemy(enemy_health):
     enemy_health = enemy_health - player_hit
+        
     if enemy_health <= 0:
         win()
     else:
