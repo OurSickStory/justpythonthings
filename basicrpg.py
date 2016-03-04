@@ -72,6 +72,10 @@ havearmor = 0
 apple = 0
 ininventory = 0
 
+currentFightLength = 2
+
+
+
 
 ##########################################################################
 #start of the game
@@ -373,6 +377,7 @@ def fightstart():
     global fleestatus
     fleestatus = fleestatus
     
+    
     if enemy_hit >= player_health:
         amulet()
         
@@ -385,17 +390,32 @@ def fightstart():
     if player_health >= 0:
         playerHealth()
 
-
-
+#fight length
+def fightlength():
+    global currentFightLength
+    currentFightLength = currentFightLength
+    global player_health
+    player_health = player_health
+    global enemy_health
+    enemy_health = enemy_health
+    
+    if currentFightLength <= 5:
+        
+        if player_health <= 0:
+            death()
+        if enemy_health <= 0:
+            win()
+    else:
+        fightstart()
 
 
 #defines how the player health is going during the fight.
 def playerHealth():
     global player_health
     player_health = player_health - enemy_hit
-
+    
     if player_health <= 0:
-        death()
+        fightlength()
         
     else:
         if enemy_hit == 0:
@@ -409,9 +429,12 @@ def playerHealth():
 def enemyHealth():
     global enemy_health
     enemy_health = enemy_health - player_hit
+    global currentFightLength
+    currentFightLength = currentFightLength 
+    currentFightLength = currentFightLength + 1
 
-    if enemy_health <= 0:
-        win()
+    if currentFightLength >= 5:
+        fightlength()
     
     if player_hit == 0:
         print('-->You missed the {}!'.format(enemy_name))
@@ -442,6 +465,9 @@ def win():
     gainedXP = addXp
     global fleestatus
     fleestatus = 'yes'
+    global currentFightLength
+    currentFightLength = currentFightLength = 0
+    
     print('\n->You have killed a {}, dealing {} damage.\n-->You have {} health, you gained {} gold and gained {} exp.'.format(enemy_name,player_hit,player_health,goldEarned,gainedXP))
     levelup()
 
@@ -482,6 +508,10 @@ def death():
     ininventory = 0
     global amuletLife
     amuletLife = 0
+    global apple
+    apple = 0
+    global currentFightLength
+    currentFightLength = currentFightLength = 0
     main_menu()
 
 #flee menu
@@ -540,7 +570,7 @@ def levelup():
 #debug message, changes as needed.
 def debug():
     print('This is used during testing..\n')
-    print('enemy starting: {} enemy health {} your health {}.'.format(enemy_starting_health,enemy_health,player_health))
+    print('max health {}'.format(max_health))
     return	
 
 #starts the game after everything is verfied
