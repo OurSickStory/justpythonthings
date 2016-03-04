@@ -7,6 +7,9 @@ to get out of the lower levels.
 ##if monstername part add monster base health
 to be different tehn basic health.
 
+#flee should be based on a percent of your 
+health? not just you being lower health.
+
 #some type of conditions met 
 to meet wandering merchent.
 
