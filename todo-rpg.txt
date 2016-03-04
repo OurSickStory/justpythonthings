@@ -4,6 +4,8 @@
 #enemies are still pretty strong. takes a bit
 to get out of the lower levels.
 #if fight is longer then x just print recap/
+##if monstername part add monster base health
+to be different tehn basic health.
 
 #some type of conditions met 
 to meet wandering merchent.
