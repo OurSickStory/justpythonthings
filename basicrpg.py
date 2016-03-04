@@ -41,6 +41,7 @@ fleecheck = random.randint(1,100)
 fleestatus = 'yes'
 enemy_damage = 0
 player_damage = 0
+currentFightLength = 0
 ##########################################################################
 #resting  variables
 ##########################################################################
@@ -73,19 +74,12 @@ haveweapon = 0
 havearmor = 0
 apple = 0
 ininventory = 0
-
-currentFightLength = 2
-
-
-
-
 ##########################################################################
 #start of the game
 ##########################################################################
 def char_name():
     print('Welcome to the woods ' + charname + '.\nUse "help" to get started.')
     main_menu()
-
 ##########################################################################
 #main menu and things related to the main menu.
 ##########################################################################
@@ -115,18 +109,15 @@ def main_menu():
                 eatapple()
         else:
             print('That\'s not a valid command, ' + charname + '.')
-
 #defines the help menu
 def help():
     print('\nUsable commands are:\n->Help\n->Rest\n->Status\n->Inventory\n->Buy (currently in progress)\n->Fight\n->Debug (only used for testing)')
     return
-
 #defines the status function in main menu
 def status():
     print('->Current State: {}\n->Current health: {}\n->Kill Count: {}\n->Gold on hand: {}'.format(player_state, player_health,killCount,currentGold))
     print('->You currently are level: {}\n-->You need {} exp to get to level {}.\n->Your max health is {}'.format(currentLevel,needExp,nextLevel,max_health))
     return
-
 #defines the rest/heal function in main menu
 def rest():
     global player_health
@@ -152,7 +143,6 @@ def rest():
         player_health = player_health + player_rest
         print('Your health has been restore, your current health is {}.'.format(player_health))
         return
-
 #inventory
 def inventory():
     if ininventory == 0:
@@ -176,8 +166,7 @@ def inventory():
             print('You currently have {} amulets.'.format(amuletLife))
         if apple >= 1:
             print('You currently have {} apples.'.format(apple))
-    return
-      
+    return     
 ##########################################################################
 #end of main menu things
 ##########################################################################	
@@ -259,8 +248,7 @@ def buy_menu():
             if buymenu == "main menu":
                 return
         else:
-            print('That\'s not a valid command, ' + charname + '. Use help to see what\'s available.')
-            
+            print('That\'s not a valid command, ' + charname + '. Use help to see what\'s available.')           
 #eat da apple.
 def eatapple():
     global player_health
@@ -305,7 +293,6 @@ def amulet():
         main_menu()
     if amuletLife == 0:
         death()
-
 ##########################################################################
 #monsternames
 ##########################################################################
@@ -332,8 +319,7 @@ def monstername():
     player_hit = random.randint(0,int(player_max_hit))
     global enemy_hit
     enemy_hit = random.randint(0,int(enemy_max_hit))
-        
-    
+           
     if max_health < 25:
         enemy_name = random.choice(enemy_list)
         enemy_health = random.randint(1,int(player_health))
@@ -349,7 +335,6 @@ def monstername():
         fightstart()
     else:
          print('debug monstername')
-
 ##########################################################################
 #end of monsters
 ##########################################################################
@@ -378,8 +363,7 @@ def fightstart():
     enemy_hit = random.randint(0,int(enemy_max_hit))
     global fleestatus
     fleestatus = fleestatus
-    
-    
+        
     if enemy_hit >= player_health:
         amulet()
         
@@ -387,17 +371,16 @@ def fightstart():
         if fleestatus == "yes":
             flee()
         else:
-            pass
-          
+            pass     
+			
     if player_health >= 0:
        playerHealth()
-
+	   
     if player_health <= 0:
         death()
         
     if enemy_health <= 0:
         win()
-
 #fight length
 def fightlength():
     global currentFightLength
@@ -422,8 +405,7 @@ def fightlength():
         player_damage = player_damage + player_hit
         
     else:
-        fightstart()
-	
+        fightstart()	
 #defines how the player health is going during the fight.
 def playerHealth():
     global player_health
@@ -439,8 +421,7 @@ def playerHealth():
             print('Me:You took {} damage, you have {} health left.'.format(enemy_hit,player_health))
             enemyHealth() 
     else:
-        fightlength()
-        
+        fightlength()       
 #defines the enemy health during the fight.
 def enemyHealth():
     global enemy_health
@@ -459,12 +440,6 @@ def enemyHealth():
     else:
         print('Me:You dealt {} damage, {} has {} health left.'.format(player_hit,enemy_name,enemy_health))
         fightstart()
-
-        
-        
-
-
-
 #defines what happens when you win a fight.
 def win():
     global enemy_health
@@ -488,7 +463,6 @@ def win():
     
     print('\n->You have killed a {}, he did {} to you. You dealt {}.\n-->You have {} health, you gained {} and {} exp.'.format(enemy_name,enemy_damage,enemy_health,player_health,goldEarned,gainedXP))
     levelup()
-
 #defines what happens on death - reset stats
 def death():
     print('\nOh dear..you are dead')
@@ -531,7 +505,6 @@ def death():
     global currentFightLength
     currentFightLength = currentFightLength = 0
     main_menu()
-
 #flee menu
 def flee():
   global fleestatus
@@ -594,7 +567,6 @@ def debug():
     print('This is used during testing..\n')
     print('playa damage {}'.format(player_damage))
     return	
-
 #starts the game after everything is verfied
 char_name()
 
