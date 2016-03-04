@@ -297,6 +297,8 @@ def amulet():
 #monsternames
 ##########################################################################
 def monstername():
+    global player_health
+    player_health = player_health
     global enemy_name
     enemy_name = random.choice(enemy_list)
     global max_health
@@ -370,8 +372,6 @@ def fightstart():
     if player_health <= enemy_health:
         if fleestatus == "yes":
             flee()
-        else:
-            pass     
 			
     if player_health >= 0:
        playerHealth()
@@ -405,6 +405,7 @@ def fightlength():
         player_damage = player_damage + player_hit
         
     else:
+        print('made it to fight start')
         fightstart()	
 #defines how the player health is going during the fight.
 def playerHealth():
@@ -432,7 +433,6 @@ def enemyHealth():
     currentFightLength = currentFightLength 
     
     currentFightLength = currentFightLength + 1
-    print('current length{}'.format(currentFightLength))
     
     if player_hit == 0:
         print('-->You missed the {}!'.format(enemy_name))
@@ -567,7 +567,6 @@ def levelup():
 #debug message, changes as needed.
 def debug():
     print('This is used during testing..\n')
-    print('playa damage {}'.format(player_damage))
     return	
 #starts the game after everything is verfied
 char_name()
