@@ -394,31 +394,34 @@ def fightlength():
     global enemy_damage
     enemy_damage = enemy_damage
     
-    if currentFightLength >= 10:
-        if player_health <= 0:
-            death()
-        if enemy_health <= 0:
-            win()
+    while True:
+        currentFightLength >= 10
         player_health = player_health - enemy_hit
         enemy_health = enemy_health - player_hit
         enemy_damage = enemy_damage + enemy_hit
         player_damage = player_damage + player_hit
-        return
+        if player_health <= 0:
+            death()
+        if enemy_health <= 0:
+            win()
     else:
-        print('made it to fight start')
+        print('fightlengthdebug')
         fightstart()	
 #defines how the player health is going during the fight.
 def playerHealth():
     global player_health
-    player_health = player_health - enemy_hit
+    player_health = player_health
     global player_damage 
-    player_damage = player_damage + player_hit
-    
-    if currentFightLength <= 10:
+    player_damage = player_damage
+   
+    if currentFightLength <= 10: 
         if enemy_hit == 0:
             print('-->{} missed you!'.format(enemy_name))
             enemyHealth()
         else:
+            player_damage = player_damage + player_hit
+            player_health = player_health - enemy_hit
+            print('player damage: player hit{}'.format(player_damage,player_hit))
             print('Me:You took {} damage, you have {} health left.'.format(enemy_hit,player_health))
             enemyHealth() 
     else:
@@ -426,20 +429,22 @@ def playerHealth():
 #defines the enemy health during the fight.
 def enemyHealth():
     global enemy_health
-    enemy_health = enemy_health - player_hit
+    enemy_health = enemy_health
     global enemy_damage
-    enemy_damage = enemy_damage + enemy_hit
+    enemy_damage = enemy_damage
     global currentFightLength
-    currentFightLength = currentFightLength 
+    currentFightLength = currentFightLength
     
     currentFightLength = currentFightLength + 1
-    
     if player_hit == 0:
         print('-->You missed the {}!'.format(enemy_name))
         fightstart()
     if enemy_health <= 0: 
         win()
     else:
+        enemy_damage = enemy_damage + enemy_hit    
+        enemy_health = enemy_health - player_hit
+        print('enemy damage:{} enemy hit: {}'.format(enemy_damage,enemy_hit))
         print('Me:You dealt {} damage, {} has {} health left.'.format(player_hit,enemy_name,enemy_health))
         fightstart()
 #defines what happens when you win a fight.
@@ -462,8 +467,12 @@ def win():
     fleestatus = 'yes'
     global currentFightLength
     currentFightLength = currentFightLength = 0
+    global enemy_damage
+    enemy_damage = enemy_damage
+    global player_damage
+    player_damage = player_damage
     
-    print('\n->You have killed a {}, he did {} to you. You dealt {}.\n-->You have {} health, you gained {} and {} exp.'.format(enemy_name,enemy_damage,enemy_starting_health,player_health,goldEarned,gainedXP))
+    print('\n->You have killed a {}, he did {} to you. You dealt {}.\n-->You have {} health, you gained {} and {} exp.'.format(enemy_name,enemy_damage,player_damage,player_health,goldEarned,gainedXP))
     levelup()
 #defines what happens on death - reset stats
 def death():
