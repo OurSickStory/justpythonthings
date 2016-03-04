@@ -430,7 +430,9 @@ def enemyHealth():
     enemy_damage = enemy_damage + enemy_hit
     global currentFightLength
     currentFightLength = currentFightLength 
+    
     currentFightLength = currentFightLength + 1
+    print('current length{}'.format(currentFightLength))
     
     if player_hit == 0:
         print('-->You missed the {}!'.format(enemy_name))
