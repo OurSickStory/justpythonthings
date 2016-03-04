@@ -394,7 +394,7 @@ def fightlength():
     global enemy_damage
     enemy_damage = enemy_damage
     
-    while currentFightLength >= 5:
+    if currentFightLength >= 10:
         if player_health <= 0:
             death()
         if enemy_health <= 0:
@@ -403,7 +403,7 @@ def fightlength():
         enemy_health = enemy_health - player_hit
         enemy_damage = enemy_damage + enemy_hit
         player_damage = player_damage + player_hit
-        
+        return
     else:
         print('made it to fight start')
         fightstart()	
@@ -414,7 +414,7 @@ def playerHealth():
     global player_damage 
     player_damage = player_damage + player_hit
     
-    if currentFightLength <= 5:
+    if currentFightLength <= 10:
         if enemy_hit == 0:
             print('-->{} missed you!'.format(enemy_name))
             enemyHealth()
@@ -463,11 +463,12 @@ def win():
     global currentFightLength
     currentFightLength = currentFightLength = 0
     
-    print('\n->You have killed a {}, he did {} to you. You dealt {}.\n-->You have {} health, you gained {} and {} exp.'.format(enemy_name,enemy_damage,enemy_health,player_health,goldEarned,gainedXP))
+    print('\n->You have killed a {}, he did {} to you. You dealt {}.\n-->You have {} health, you gained {} and {} exp.'.format(enemy_name,enemy_damage,enemy_starting_health,player_health,goldEarned,gainedXP))
     levelup()
 #defines what happens on death - reset stats
 def death():
     print('\nOh dear..you are dead')
+    print('{} did {} damage.'.format(enemy_name,enemy_hit))
     global killCount
     killCount = 0
     global player_health
