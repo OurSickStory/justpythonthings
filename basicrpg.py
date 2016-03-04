@@ -89,24 +89,6 @@ def main_menu():
         mainmenu = input("\nWhat would you like to do?:")
         if mainmenu in menucommands:
             if mainmenu == "fight":
-                global enemy_starting_health
-                enemy_starting_health = enemy_health
-                global goldEarned
-                goldEarned = random.randint(1,int(enemy_starting_health))
-                global max_health
-                max_health = max_health
-                global player_damage_percent
-                player_damage_percent = math.ceil(enemy_starting_health * .50)
-                global player_max_hit
-                player_max_hit = random.randint(0,int(player_damage_percent))
-                global enemy_damage_percent
-                enemy_damage_percent = math.ceil(max_health * .25)
-                global enemy_max_hit
-                enemy_max_hit = random.randint(0,int(enemy_damage_percent))                
-                global player_hit
-                player_hit = random.randint(0,int(player_max_hit))
-                global enemy_hit
-                enemy_hit = random.randint(0,int(enemy_max_hit))
                 global player_state
                 player_state = 'fight'
                 monstername()
@@ -324,16 +306,44 @@ def amulet():
 def monstername():
     global enemy_name
     enemy_name = random.choice(enemy_list)
+    global max_health
+    max_health = max_health
+    global enemy_health
+    enemy_health = random.randint(1,int(player_health))
+    global enemy_starting_health
+    enemy_starting_health = enemy_health
+    global goldEarned
+    goldEarned = random.randint(1,int(enemy_starting_health))
+    global player_damage_percent
+    player_damage_percent = math.ceil(enemy_starting_health * .50)
+    global player_max_hit
+    player_max_hit = random.randint(0,int(player_damage_percent))
+    global enemy_damage_percent
+    enemy_damage_percent = math.ceil(max_health * .25)
+    global enemy_max_hit
+    enemy_max_hit = random.randint(0,int(enemy_damage_percent))                
+    global player_hit
+    player_hit = random.randint(0,int(player_max_hit))
+    global enemy_hit
+    enemy_hit = random.randint(0,int(enemy_max_hit))
+        
     
     if max_health < 25:
         enemy_name = random.choice(enemy_list)
+        enemy_health = random.randint(1,int(player_health))
+        enemy_starting_health = enemy_health
         print('\nYou have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
         fightstart()
 
     if max_health >= 25:
         enemy_name = random.choice(enemy_list_2)
+        enemy_health = random.randint(10,int(player_health))
+        enemy_starting_health = enemy_health
         print('\nYou have started a fight with a {}. He has {} health.'.format(enemy_name,enemy_health))
         fightstart()
+    else:
+         print('debug monstername')
+
 ##########################################################################
 #end of monsters
 ##########################################################################
@@ -530,10 +540,7 @@ def levelup():
 #debug message, changes as needed.
 def debug():
     print('This is used during testing..\n')
-    print('enemy health {} enemy start health {}.'.format(enemy_health,enemy_starting_health))
-    print('enemy max hit {} player max hit {}.'.format(enemy_max_hit,player_max_hit))
-    print('enemy hit {} player hit {}.'.format(enemy_hit,player_hit))
-    print('player damage percent {} enemy damage percent {}.'.format(player_damage_percent,enemy_damage_percent))
+    print('enemy starting: {} enemy health {} your health {}.'.format(enemy_starting_health,enemy_health,player_health))
     return	
 
 #starts the game after everything is verfied
