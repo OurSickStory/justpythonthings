@@ -13,6 +13,11 @@ health? not just you being lower health.
 #some type of conditions met 
 to meet wandering merchent.
 
+#rework enemy starting health again
+instead of it being 
+x,player health have it be a base percent
+%playerhealth, playerhealth
+
 #bonus gold on level up?
 
 #more foods!
