@@ -413,15 +413,20 @@ def playerHealth():
     player_health = player_health
     global player_damage 
     player_damage = player_damage
-   
+    global enemy_hit
+    enemy_hit = enemy_hit
+    
+    player_damage = player_damage + player_hit    
+    
+    
     if currentFightLength <= 10: 
+        if enemy_health <= 0:
+            win()
         if enemy_hit == 0:
             print('-->{} missed you!'.format(enemy_name))
             enemyHealth()
         else:
-            player_damage = player_damage + player_hit
             player_health = player_health - enemy_hit
-            print('player damage: player hit{}'.format(player_damage,player_hit))
             print('Me:You took {} damage, you have {} health left.'.format(enemy_hit,player_health))
             enemyHealth() 
     else:
@@ -434,17 +439,20 @@ def enemyHealth():
     enemy_damage = enemy_damage
     global currentFightLength
     currentFightLength = currentFightLength
+    global enemy_hit
+    enemy_hit = enemy_hit
+    global player_hit
+    player_hit = player_hit
     
+    enemy_damage = enemy_damage + enemy_hit       
     currentFightLength = currentFightLength + 1
     if player_hit == 0:
         print('-->You missed the {}!'.format(enemy_name))
         fightstart()
-    if enemy_health <= 0: 
+    if player_hit >= enemy_health: 
         win()
     else:
-        enemy_damage = enemy_damage + enemy_hit    
         enemy_health = enemy_health - player_hit
-        print('enemy damage:{} enemy hit: {}'.format(enemy_damage,enemy_hit))
         print('Me:You dealt {} damage, {} has {} health left.'.format(player_hit,enemy_name,enemy_health))
         fightstart()
 #defines what happens when you win a fight.
@@ -472,7 +480,7 @@ def win():
     global player_damage
     player_damage = player_damage
     
-    print('\n->You have killed a {}, he did {} to you. You dealt {}.\n-->You have {} health, you gained {} and {} exp.'.format(enemy_name,enemy_damage,player_damage,player_health,goldEarned,gainedXP))
+    print('\n->You have killed a {}, he did {} to you. You dealt {}.\n-->You have {} health, you gained {} and {} exp.'.format(enemy_name,enemy_damage,enemy_starting_health,player_health,goldEarned,gainedXP))
     levelup()
 #defines what happens on death - reset stats
 def death():
@@ -516,6 +524,10 @@ def death():
     apple = 0
     global currentFightLength
     currentFightLength = currentFightLength = 0
+    global player_damage 
+    player_damage = 0
+    global enemy_damage
+    enemy_damage = 0
     main_menu()
 #flee menu
 def flee():
