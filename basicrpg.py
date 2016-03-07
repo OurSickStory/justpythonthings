@@ -69,11 +69,11 @@ woodenSword = 0
 ironSword = 0
 leatherChest = 0
 ironPlate = 0
-amuletLife = 0
+amuletLife = 1
 haveweapon = 0
 havearmor = 0
 apple = 0
-ininventory = 0
+ininventory = 1
 ##########################################################################
 #start of the game
 ##########################################################################
@@ -291,7 +291,7 @@ def amulet():
         player_health = player_health + 1
         print('\nYou have used an amulet to escape death!\nYou have {} amulet(s) left.'.format(amuletLife))
         main_menu()
-    if amuletLife == 0:
+    else:
         death()
 ##########################################################################
 #monsternames
@@ -381,6 +381,7 @@ def fightstart():
         
     if enemy_health <= 0:
         win()
+        
 #fight length
 def fightlength():
     global currentFightLength
@@ -484,8 +485,9 @@ def win():
     levelup()
 #defines what happens on death - reset stats
 def death():
-    print('\nOh dear..you are dead')
-    print('{} did {} damage.'.format(enemy_name,enemy_hit))
+    print('\n#######################')
+    print('#Oh dear..you are dead#')
+    print('#######################')
     global killCount
     killCount = 0
     global player_health
@@ -592,4 +594,3 @@ def debug():
     return	
 #starts the game after everything is verfied
 char_name()
-
