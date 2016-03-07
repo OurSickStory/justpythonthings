@@ -69,11 +69,11 @@ woodenSword = 0
 ironSword = 0
 leatherChest = 0
 ironPlate = 0
-amuletLife = 1
+amuletLife = 0
 haveweapon = 0
 havearmor = 0
 apple = 0
-ininventory = 1
+ininventory = 0
 ##########################################################################
 #start of the game
 ##########################################################################
@@ -129,7 +129,7 @@ def rest():
         print('You seem to be fully healed')
         return
 
-    if RestorFight >= 75:
+    if RestorFight >= 90:
         print('\n->Looks like I\'m not sleeping now! A {} has attacked! He has {} health.'.format(enemy_name,enemy_health))
         fightstart()
 
@@ -291,7 +291,7 @@ def amulet():
         player_health = player_health + 1
         print('\nYou have used an amulet to escape death!\nYou have {} amulet(s) left.'.format(amuletLife))
         main_menu()
-    else:
+    if amuletLife == 0:
         death()
 ##########################################################################
 #monsternames
@@ -381,7 +381,6 @@ def fightstart():
         
     if enemy_health <= 0:
         win()
-        
 #fight length
 def fightlength():
     global currentFightLength
@@ -396,7 +395,7 @@ def fightlength():
     enemy_damage = enemy_damage
     
     while True:
-        currentFightLength >= 10
+        currentFightLength >= 5
         player_health = player_health - enemy_hit
         enemy_health = enemy_health - player_hit
         enemy_damage = enemy_damage + enemy_hit
@@ -420,7 +419,7 @@ def playerHealth():
     player_damage = player_damage + player_hit    
     
     
-    if currentFightLength <= 10: 
+    if currentFightLength <= 5: 
         if enemy_health <= 0:
             win()
         if enemy_hit == 0:
@@ -485,9 +484,8 @@ def win():
     levelup()
 #defines what happens on death - reset stats
 def death():
-    print('\n#######################')
-    print('#Oh dear..you are dead#')
-    print('#######################')
+    print('\nOh dear..you are dead')
+    print('{} did {} damage.'.format(enemy_name,enemy_hit))
     global killCount
     killCount = 0
     global player_health
@@ -594,3 +592,4 @@ def debug():
     return	
 #starts the game after everything is verfied
 char_name()
+
