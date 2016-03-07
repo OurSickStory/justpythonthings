@@ -396,7 +396,7 @@ def fightlength():
     enemy_damage = enemy_damage
     
     while True:
-        currentFightLength >= 10
+        currentFightLength >= 5
         player_health = player_health - enemy_hit
         enemy_health = enemy_health - player_hit
         enemy_damage = enemy_damage + enemy_hit
@@ -420,7 +420,7 @@ def playerHealth():
     player_damage = player_damage + player_hit    
     
     
-    if currentFightLength <= 10: 
+    if currentFightLength <= 5: 
         if enemy_health <= 0:
             win()
         if enemy_hit == 0:
