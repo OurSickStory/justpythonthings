@@ -482,7 +482,7 @@ def win():
     global player_damage
     player_damage = player_damage
     
-    print('\n->You have killed a {}, he did {} damage to you. You dealt {}.\n-->You have {} health, you gained {} gold and {} exp.'.format(enemy_name,enemy_damage,enemy_starting_health,player_health,goldEarned,gainedXP))
+    print('\n->You have killed a {}!\n->He did {} damage to you. You dealt {}.\n-->You have {} health, you gained {} gold and {} exp.'.format(enemy_name,enemy_damage,enemy_starting_health,player_health,goldEarned,gainedXP))
     levelup()
 #defines what happens on death - reset stats
 def death():
