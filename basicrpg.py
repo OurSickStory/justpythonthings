@@ -69,11 +69,12 @@ woodenSword = 0
 ironSword = 0
 leatherChest = 0
 ironPlate = 0
-amuletLife = 1
+amuletLife = 0
 haveweapon = 0
 havearmor = 0
 apple = 0
-ininventory = 1
+ininventory = 0
+
 ##########################################################################
 #start of the game
 ##########################################################################
@@ -481,7 +482,7 @@ def win():
     global player_damage
     player_damage = player_damage
     
-    print('\n->You have killed a {}, he did {} to you. You dealt {}.\n-->You have {} health, you gained {} gold and {} exp.'.format(enemy_name,enemy_damage,enemy_starting_health,player_health,goldEarned,gainedXP))
+    print('\n->You have killed a {}, he did {} damage to you. You dealt {}.\n-->You have {} health, you gained {} gold and {} exp.'.format(enemy_name,enemy_damage,enemy_starting_health,player_health,goldEarned,gainedXP))
     levelup()
 #defines what happens on death - reset stats
 def death():
