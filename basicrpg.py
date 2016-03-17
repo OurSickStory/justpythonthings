@@ -61,7 +61,8 @@ nextLevel = 2
 ##########################################################################
 #buy menu variables
 ##########################################################################
-buyMenu = ["food", "buy","help","main menu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest", "buy iron plate", "necklaces", "buy amulet of life", "buy apple"]
+buyMenu = ["food", "buy","help","main menu","armor","weapons", "buy wooden sword", "buy iron sword", "buy leather chest"
+    , "buy iron plate", "necklaces", "buy amulet of life", "buy apple"]
 weapons = ["wooden sword", "iron sword"]
 armor = ["leather chest", "iron plate"]
 food = ["apple"]
@@ -137,10 +138,10 @@ def rest():
     if player_health < max_health:
         global max_heal
         max_heal = max_health - player_health
-        
+
         global player_rest
         player_rest = random.randint(1,int(max_heal))
-        
+
         player_health = player_health + player_rest
         print('Your health has been restore, your current health is {}.'.format(player_health))
         return
@@ -154,7 +155,7 @@ def inventory():
 
         else:
             print('You currently have {} things in your inventory.'.format(ininventory))
-                
+
         if woodenSword == 1:
             print('You currently have a Wooden Sword.')
         if ironSword == 1:
@@ -167,10 +168,10 @@ def inventory():
             print('You currently have {} amulets.'.format(amuletLife))
         if apple >= 1:
             print('You currently have {} apples.'.format(apple))
-    return     
+    return
 ##########################################################################
 #end of main menu things
-##########################################################################	
+##########################################################################
 ##########################################################################
 #buy menu and things related to the buy menu.
 ##########################################################################
@@ -183,17 +184,17 @@ def buy_menu():
     amuletLife = amuletLife
     global apple
     apple = apple
-    
+
     buymenu = ""
     while buymenu != "quit":
         buymenu = input('\nWhat would you like to buy?:')
         if buymenu in buyMenu:
             if buymenu == "buy":
                 print('Buy what? You didn\'t list anything. ex: buy wooden sword')
-                
+
             if buymenu == "buy wooden sword":
                 print('You bought a Wooden Sword for 100 gold, your current gold is {}.'.format(currentGold))
-                
+
             if buymenu == "buy iron sword":
                 print('You bought an Iron Sword for 300 gold, your current gold is {}.'.format(currentGold))
 
@@ -206,15 +207,15 @@ def buy_menu():
             if buymenu == "buy amulet of life":
                 if currentGold >= 100:
                     if amuletLife == 5:
-                        print('You already have too many Amulets.')  
+                        print('You already have too many Amulets.')
                     currentGold = currentGold - 100
                     amuletLife = amuletLife + 1
                     ininventory = ininventory + 1
                     print('You bought an Amulet of Life for 100 gold, your current gold is {}.'.format(currentGold))
-                
+
                 else:
                    print('You don\'t have enough gold, you currently have {} gold.'.format(currentGold))
-                   
+
             if buymenu == "buy apple":
                 if currentGold >= 50:
                     if apple == 5:
@@ -227,29 +228,29 @@ def buy_menu():
                 else:
                     print('You don\'t have enough gold, you currently have {} gold.'.format(currentGold))
 
-                
+
             if buymenu == "help":
                 print('\nYou can check what weapons and armour are available by typing "weapons" or "armor" in the buy menu.\nYou can only have one of each.\nUse "main menu" to return to the main menu.')
 
             if buymenu == "armor":
                 print('Current armor is:\n->Leather chest\n-->Price: 200 gold\n-->Blocks: up to 3 damage.\n->Iron Plate\n-->Price: 500 gold\n-->Blocks up to 5 damage.')
-                print('Type "buy item name" to buy.') 
-                
+                print('Type "buy item name" to buy.')
+
             if buymenu == "weapons":
                 print('Current weapon\'s are:\n->Wooden Sword\n-->Price: 100 gold\n--Adds: up to 3 damage.\nIron Sword\n-->Price: 300 gold\n-->Adds up to 5 damage.')
                 print('Type "buy item name" to buy.')
 
             if buymenu == "food":
                 print('Current foods are\n->Apple\n-->Price: 50 gold\n-->Heals 5 health.')
-                
+
             if buymenu == "necklaces":
                 print('Current necklaces are:\n->Amulet of life\n->Price: 100 gold\n->Has a chance to escape a critcal hit.')
                 print('Type "buy item name" to buy.')
-                
+
             if buymenu == "main menu":
                 return
         else:
-            print('That\'s not a valid command, ' + charname + '. Use help to see what\'s available.')           
+            print('That\'s not a valid command, ' + charname + '. Use help to see what\'s available.')
 #eat da apple.
 def eatapple():
     global player_health
@@ -261,7 +262,7 @@ def eatapple():
     global max_health
     max_health = max_health
     if apple >= 1:
-        if player_health <= max_health: 
+        if player_health <= max_health:
             player_health = player_health + 5
             apple = apple - 1
             ininventory = ininventory - 1
@@ -275,7 +276,7 @@ def eatapple():
         return
 ##########################################################################
 #end of buy menu things
-##########################################################################	
+##########################################################################
 ##########################################################################
 #amulet of life define
 ##########################################################################
@@ -317,12 +318,12 @@ def monstername():
     global enemy_damage_percent
     enemy_damage_percent = math.ceil(max_health * .25)
     global enemy_max_hit
-    enemy_max_hit = random.randint(0,int(enemy_damage_percent))                
+    enemy_max_hit = random.randint(0,int(enemy_damage_percent))
     global player_hit
     player_hit = random.randint(0,int(player_max_hit))
     global enemy_hit
     enemy_hit = random.randint(0,int(enemy_max_hit))
-           
+
     if max_health < 25:
         enemy_name = random.choice(enemy_list)
         enemy_health = random.randint(1,int(player_health))
@@ -359,30 +360,33 @@ def fightstart():
     global enemy_damage_percent
     enemy_damage_percent = math.ceil(max_health * .25)
     global enemy_max_hit
-    enemy_max_hit = random.randint(0,int(enemy_damage_percent))                
+    enemy_max_hit = random.randint(0,int(enemy_damage_percent))
     global player_hit
     player_hit = random.randint(0,int(player_max_hit))
     global enemy_hit
     enemy_hit = random.randint(0,int(enemy_max_hit))
     global fleestatus
     fleestatus = fleestatus
-        
+
+    if currentFightLength >= 5:
+       fightlength()
+
     if enemy_hit >= player_health:
         amulet()
-        
+
     if player_health <= enemy_health:
         if fleestatus == "yes":
             flee()
-			
+
     if player_health >= 0:
        playerHealth()
-	   
+
     if player_health <= 0:
         death()
-        
+
     if enemy_health <= 0:
         win()
-        
+
 #fight length
 def fightlength():
     global currentFightLength
@@ -391,37 +395,37 @@ def fightlength():
     player_health = player_health
     global enemy_health
     enemy_health = enemy_health
-    global player_damage 
+    global player_damage
     player_damage = player_damage
     global enemy_damage
     enemy_damage = enemy_damage
-    
-    while True:
-        currentFightLength >= 5
-        player_health = player_health - enemy_hit
-        enemy_health = enemy_health - player_hit
-        enemy_damage = enemy_damage + enemy_hit
-        player_damage = player_damage + player_hit
-        if player_health <= 0:
-            death()
-        if enemy_health <= 0:
-            win()
+
+    player_health = player_health - enemy_hit
+    enemy_health = enemy_health - player_hit
+    enemy_damage = enemy_damage + enemy_hit
+    player_damage = player_damage + player_hit
+
+    if player_health <= 0:
+        death()
+    if enemy_health <= 0:
+        win()
+
     else:
-        print('fightlengthdebug')
-        fightstart()	
+        fightstart()
+        
 #defines how the player health is going during the fight.
 def playerHealth():
     global player_health
     player_health = player_health
-    global player_damage 
+    global player_damage
     player_damage = player_damage
     global enemy_hit
     enemy_hit = enemy_hit
-    
-    player_damage = player_damage + player_hit    
-    
-    
-    if currentFightLength <= 5: 
+
+    player_damage = player_damage + player_hit
+
+
+    if currentFightLength <= 5:
         if enemy_health <= 0:
             win()
         if enemy_hit == 0:
@@ -430,9 +434,9 @@ def playerHealth():
         else:
             player_health = player_health - enemy_hit
             print('Me:You took {} damage, you have {} health left.'.format(enemy_hit,player_health))
-            enemyHealth() 
+            enemyHealth()
     else:
-        fightlength()       
+        fightlength()
 #defines the enemy health during the fight.
 def enemyHealth():
     global enemy_health
@@ -445,13 +449,14 @@ def enemyHealth():
     enemy_hit = enemy_hit
     global player_hit
     player_hit = player_hit
-    
-    enemy_damage = enemy_damage + enemy_hit       
+
+    enemy_damage = enemy_damage + enemy_hit
     currentFightLength = currentFightLength + 1
+    print('current fight length {}'.format(currentFightLength))
     if player_hit == 0:
         print('-->You missed the {}!'.format(enemy_name))
         fightstart()
-    if player_hit >= enemy_health: 
+    if player_hit >= enemy_health:
         win()
     else:
         enemy_health = enemy_health - player_hit
@@ -481,7 +486,7 @@ def win():
     enemy_damage = enemy_damage
     global player_damage
     player_damage = player_damage
-    
+
     print('\n->You have killed a {}!\n->He did {} damage to you. You dealt {}.\n-->You have {} health, you gained {} gold and {} exp.'.format(enemy_name,enemy_damage,enemy_starting_health,player_health,goldEarned,gainedXP))
     levelup()
 #defines what happens on death - reset stats
@@ -527,7 +532,7 @@ def death():
     apple = 0
     global currentFightLength
     currentFightLength = currentFightLength = 0
-    global player_damage 
+    global player_damage
     player_damage = 0
     global enemy_damage
     enemy_damage = 0
@@ -554,6 +559,7 @@ def flee():
             print('->good luck!')
             return
     else:
+        print('That is not a valid command.')
         return
 ##########################################################################
 #end of fight related things
@@ -575,7 +581,7 @@ def levelup():
         max_health = max_health
         global nextLevel
         nextLevel = nextLevel
-        
+
         currentLevel = currentLevel + 1
         max_health = max_health + 5
         needExp = needExp * 2
@@ -592,6 +598,7 @@ def levelup():
 #debug message, changes as needed.
 def debug():
     print('This is used during testing..\n')
-    return	
+    return
 #starts the game after everything is verfied
 char_name()
+
