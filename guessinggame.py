@@ -10,14 +10,13 @@ def numberGuess():  #defines the game to start, and loop.
     guessesTaken = 0  #how many guesses you've taken.
     guessesLeft =  6  #how many guesses you have left.
     number = random.randint(1, 10)  #picks the random number using the imported random
-    print('I am thinking of a number between 1 and 10.' + "\n"  + 'Can you guess the number?') #print the start of the game.
-    print('You have 6 guesses.')
+    print('I am thinking of a number between 1 and 10.') #print the start of the game.
 
     while guessesTaken < 6:   #the while loop, while guesses is less then 6 start ->
         guess = input("Your guess:") #your input line.
 
         try:  #the try line.
-            guess = int(guess) #checks to make sure your input is an integer (whole DIGIT, and only a digit) 
+            guess = int(guess) #checks to make sure your input is an integer (whole DIGIT, and only a digit)
         except ValueError: #if not catch the error
             print("That's not a number stupid.") #print the error
             continue #continue with the loop, obviously starts back from the start of the game
@@ -26,7 +25,7 @@ def numberGuess():  #defines the game to start, and loop.
         guessesLeft = guessesLeft - 1 #if pass remove a guess left
 
         if guess < number:  #if your guess is lower then the number picked
-            print('Your guess is too low.') 
+            print('Your guess is too low.')
 
         if guess > number and guess <= 10:  #if your guess is higher then the number picked but lower then 11
             print('Your guess is too high.')
@@ -35,20 +34,18 @@ def numberGuess():  #defines the game to start, and loop.
             print('Please use a number 1-10.')
             continue
 
-        if guessesLeft <= 5 and guessesLeft != 0 and guess != number: #if guesses left is 5 or less, but not zero and your guess isn't the number
-            print ('You have ' +  str(guessesLeft) + ' guesses left.')
+        if guessesLeft <= 5 and guessesLeft != 0 and guess != number: #if guesses left is 5 or less, but not zero and
+            print ('You have {} guesses left.'.format(guessesLeft))
 
         if guess == number: #if guess is the number picked, break the while loop.
             break
 
     if guess == number:  #defines what happens after the while loop is broken.
-        guessesTaken = str(guessesTaken) #turns the guesses taken into a string for printing (can't mix int and str)
-        print('Good job! You guessed my number in ' + guessesTaken + ' guesses!' + "\n" + "\n" + 'Lets play again!')
+        print('Good job! You guessed my number in {} tries.\nLets play again!\n'.format(guessesTaken))
         numberGuess() #repeat the game - defined for each outcome, probably easier to call as one...
 
     if guess != number: #after guesses is 0 and guess doesn't match the number ->
-        number = str(number) #again, turns it to a string.
-        print('Nope. ' + number + ' was the number I was thinking of.' + "\n" + "\n" + 'Lets play again!')
+        print('Nope. The number I was thinking of was {}.\nLets play again!\n'.format(number))
         numberGuess() #repeat the game
 
 numberGuess()
