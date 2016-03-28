@@ -8,11 +8,20 @@ import random  #imports random
 
 def numberGuess():  #defines the game to start, and loop.
     guessesTaken = 0  #how many guesses you've taken.
-    guessesLeft =  6  #how many guesses you have left.
-    number = random.randint(1, 10)  #picks the random number using the imported random
-    print('I am thinking of a number between 1 and 10.') #print the start of the game.
-
-    while guessesTaken < 6:   #the while loop, while guesses is less then 6 start ->
+    guessesLeft =  ""  #how many guesses you have left.
+    maxnumber = "" #blank input to use later
+    maxnumber = input("What is the max number you\'d like to guess from?:") #has you pick your max number
+    maxnumber = int(maxnumber) #makes sure its a number
+    number = random.randint(1, maxnumber)  #picks the random number using the imported random
+    guessesLeft = input("How many guesses would you like to have?:") #how many guesses you'd like
+    guessesLeft = int(guessesLeft) #make sure its a number..
+    if guessesLeft >= maxnumber: #makes sure its a realistic number...
+        print('Please use a realistic number..')
+        numberGuess() #you should never do this line.
+    else:
+        pass
+    print('I\'m guessing of a number between 1 and {}'.format(maxnumber))
+    while guessesTaken < guessesLeft:   #the while loop, while guesses is less then 6 start ->
         guess = input("Your guess:") #your input line.
 
         try:  #the try line.
@@ -27,14 +36,14 @@ def numberGuess():  #defines the game to start, and loop.
         if guess < number:  #if your guess is lower then the number picked
             print('Your guess is too low.')
 
-        if guess > number and guess <= 10:  #if your guess is higher then the number picked but lower then 11
+        if guess > number and guess <= maxnumber:  #if your guess is higher then the number picked but lower then 11
             print('Your guess is too high.')
 
-        if guess > 10: #if your guess is higher then 10, and continue so you don't lose a guess.
-            print('Please use a number 1-10.')
+        if guess > maxnumber: #if your guess is higher then 10, and continue so you don't lose a guess.
+            print('Please use a number 1-{}.'.format(maxnumber))
             continue
 
-        if guessesLeft <= 5 and guessesLeft != 0 and guess != number: #if guesses left is 5 or less, but not zero and
+        if guessesLeft <= maxnumber and guessesLeft != 0 and guess != number: #if guesses left is 5 or less, but not zero and
             print ('You have {} guesses left.'.format(guessesLeft))
 
         if guess == number: #if guess is the number picked, break the while loop.
@@ -42,10 +51,11 @@ def numberGuess():  #defines the game to start, and loop.
 
     if guess == number:  #defines what happens after the while loop is broken.
         print('Good job! You guessed my number in {} tries.\nLets play again!\n'.format(guessesTaken))
-        numberGuess() #repeat the game - defined for each outcome, probably easier to call as one...
+        numberGuess() #you should never do this line.
 
     if guess != number: #after guesses is 0 and guess doesn't match the number ->
         print('Nope. The number I was thinking of was {}.\nLets play again!\n'.format(number))
-        numberGuess() #repeat the game
+        numberGuess() #you should never do this line.
 
 numberGuess()
+
