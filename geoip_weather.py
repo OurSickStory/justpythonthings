@@ -26,7 +26,9 @@ temp = resp_dict['main']['temp']
 loc = resp_dict['name']
 k = int(temp)
 kelvtemp = (k - 273) * 1.8 + 32
-toaster = ToastNotifier()
-toaster.show_toast('The current temp in {} is {}'.format(loc, int(kelvtemp)),
-                   duration=10)
+while True:
+    toaster = ToastNotifier()
+    toaster.show_toast('The current temp in {}, is {}.'.format(loc, int(kelvtemp)), "This is the closest I could get!",
+                duration=30)
+    time.sleep(3600)
 
