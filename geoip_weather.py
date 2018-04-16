@@ -1,6 +1,7 @@
 import requests
 import json
-import pyowm
+from win10toast import ToastNotifier
+
 
 ipstack_key = 'ipstackkeyhere'
 ipstack_base = 'http://api.ipstack.com/check?access_key='
@@ -14,7 +15,6 @@ lat = ipresp_dict['latitude']
 long = ipresp_dict['longitude']
 city = 'lat=' + str(lat) + '&lon=' + str(long)
 key = 'owmkeyhere'
-owm = pyowm.OWM(key)
 base = 'http://api.openweathermap.org/data/2.5/weather?'
 id = '&appid='
 url = base + city + id + key
@@ -26,5 +26,7 @@ temp = resp_dict['main']['temp']
 loc = resp_dict['name']
 k = int(temp)
 kelvtemp = (k - 273) * 1.8 + 32
-print('The current temp in {} is {}'.format(loc, int(kelvtemp)))
+toaster = ToastNotifier()
+toaster.show_toast('The current temp in {} is {}'.format(loc, int(kelvtemp)),
+                   duration=10)
 
