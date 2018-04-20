@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import random
+import math
 
 #Define initial data
 data = {
@@ -9,9 +10,9 @@ data = {
                 'fl': int(1),
                 'maxhp': int(10),
                 'gold': int(30),
-                'xp': int(0),
+                'xp': int(1),
                 'xpgain': int(0),
-                'nxtlvl': int(5),
+                'nxtlvl': int(1),
                 'level': int(1),
                 'strength': int(1)},
 
@@ -22,7 +23,7 @@ data = {
                'strength': int(1)},
 
 }
-menucommands = ["status", "debug", "f", "h"]
+menucommands = ["s", "d", "f", "h"]
 
 with open('data.json', 'w', encoding='utf8') as outfile:
     str_ = json.dumps(data,
@@ -41,6 +42,7 @@ def updatedata(xpgain, gold):
         data['player']['xpgain'] = xpgained
         data['player']['xp'] = currentxp
         data['player']['gold'] = update_gold
+        data['player']['fl'] = int(0)
         update_ai_health = random.randint(data['ai']['startinghp'], data['player']['maxhp'])
         data['ai']['hp'] = update_ai_health
 
@@ -57,12 +59,14 @@ def updatedata(xpgain, gold):
 def levelup(xp, nxtlvl):
     if xp >= nxtlvl:
         with open('data.json', 'w', encoding='utf8') as outfile:
-            nxtlvl = data['player']['nxtlvl']
-            update_nxt_xp = int(nxtlvl) * 2
-            data['player']['nxtlvl'] = update_nxt_xp
             level = data['player']['level']
             update_level = int(level) + 1
             data['player']['level'] = update_level
+            baseXP = data['player']['xp']
+            level = data['player']['level']
+            neededxp = round((4 * (level ** 3)) / 5)
+            data['player']['nxtlvl'] = neededxp
+            print(neededxp)
             health_increase = random.randint(1, data['player']['xpgain'])
             current_max_health = data['player']['maxhp']
             update_max_health = current_max_health + health_increase
@@ -89,8 +93,9 @@ def levelup(xp, nxtlvl):
                               separators=(',', ': '), ensure_ascii=False)
             outfile.write(str_)
             outfile.close()
-
             heal()
+    else:
+        heal()
 
 
 def heal():
@@ -135,7 +140,7 @@ def combat():
             ai_health = ai_health - player_hit
             data['ai']['hp'] = ai_health
             if fightLength <= 5:
-                print('you hit the {} for {} he has {} hp left'.format(ai_name,player_hit,ai_health))
+                print('you hit the {} for {} he has {} hp left'.format(ai_name, player_hit, ai_health))
             else:
                 pass
             pass
@@ -208,4 +213,3 @@ def main_menu():
 
 
 main_menu()
-
