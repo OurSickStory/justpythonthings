@@ -23,7 +23,6 @@ data = {
                'strength': int(1)},
 
 }
-menucommands = ["s", "d", "f", "h"]
 
 with open('data.json', 'w', encoding='utf8') as outfile:
     str_ = json.dumps(data,
@@ -62,7 +61,6 @@ def levelup(xp, nxtlvl):
             level = data['player']['level']
             update_level = int(level) + 1
             data['player']['level'] = update_level
-            baseXP = data['player']['xp']
             level = data['player']['level']
             neededxp = round((4 * (level ** 3)) / 5)
             data['player']['nxtlvl'] = neededxp
@@ -194,22 +192,18 @@ def status():
         print(status)
 
 
-def main_menu():
-    mainmenu = ""
-    while mainmenu != "quit":
-        mainmenu = input("\nWhat would you like to do?:")
-        if mainmenu in menucommands:
-            if mainmenu == "f":
-                combat()
-            if mainmenu == "h":
-                heal()
-            if mainmenu == "s":
-                status()
-            if mainmenu == "d":
-                debug()
-
-        else:
-            print('That\'s not a valid command.')
+def unknown_command():
+    print('that\'s not a valid command')
 
 
-main_menu()
+user_input = ""
+menu_commands = {
+"f": combat,
+"h": heal,
+"s": status,
+"d": debug,
+}
+
+while user_input != "quit":
+    user_input = input("\nWhat would you like to do?:")
+    menu_commands.get(user_input, unknown_command)()
