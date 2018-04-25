@@ -1,6 +1,9 @@
 import os
 import requests
 import pathlib
+#Usage
+#import hastebinpaste
+#hastebinpaste.filesearch('filenamehere') [without the ext]
 
 def filesearch(string):
     '''searches for a file in the current dir based on the user request'''
@@ -11,14 +14,20 @@ def filesearch(string):
     for file in os.listdir("."):
         ext = os.path.splitext(file)[-1].lower()
         filename = os.path.splitext(file)[0].lower()
-        findfile = stringsearch + ext
+        findfile = filename + ext
         if stringsearch not in filename:
             pass
 
+        if stringsearch in filename:
+            if stringsearch == filename:
+                filesFound.append(findfile)
+                extFound.append(ext)
+                lockFile = True
+            else:
+                #this leaves a spot where it *could pontially be a close match*
+                pass
         else:
-            filesFound.append(findfile)
-            extFound.append(ext)
-            lockFile = True
+            pass
 
     if lockFile == False:
         print("We didn\'t Find Anything matching '{}'.".format(stringsearch))
@@ -30,10 +39,10 @@ def filesearch(string):
             hastebinpaste(stringtohaste, ext)
         else:
             print("we found these files that match your query {}".format(filesFound))
-            userresponse(extFound, stringsearch)
+            userresponse(extFound, stringtohaste)
 
 
-def userresponse(ext,filename):
+def userresponse(ext, filename):
     '''**extension, *filename - if more then one file found with that name it will ask which file you want to upload'''
     user_input = ''
     stringsearch = filename
