@@ -39,7 +39,7 @@ def filesearch(string):
             hastebinpaste(stringtohaste, ext)
         else:
             print("we found these files that match your query {}".format(filesFound))
-            userresponse(extFound, stringtohaste)
+            userresponse(extFound, stringsearch)
 
 
 def userresponse(ext, filename):
