@@ -1,0 +1,71 @@
+from pywinauto import Application, win32defines
+from pywinauto.win32functions import SetForegroundWindow, ShowWindow
+from pywinauto.keyboard import SendKeys
+from keyboard import is_pressed
+from time import sleep
+
+def try_to_connect():
+    print('Checking if <app> is already running.')
+    print('-------------------------------------')
+    try:
+        app = Application().connect(path="notepad.exe")
+        w = app.top_window()
+
+        if w.HasStyle(win32defines.WS_MINIMIZE):
+            print('found app opening from minimised')
+            print('-------------------------------------')
+            ShowWindow(w.wrapper_object(), 9)
+
+        if w.HasStyle(win32defines.WS_VISIBLE):
+            print('found app setting it to active')
+            print('-------------------------------------')
+            SetForegroundWindow(w.wrapper_object())
+            type_some_shit()
+
+        else:
+            print('-------------------------------------')
+            print('hmm')
+    except:
+        print('Seems we didnt find the app')
+        print('-------------------------------------')
+        try_to_start_app()
+
+
+def try_to_start_app():
+    print('trying to start app')
+    print('-------------------------------------')
+    try:
+        app = Application(backend="uia").start('notepad.exe')
+        w = app.top_window()
+        print('app started setting to active')
+        print('-------------------------------------')
+        type_some_shit()
+
+    except:
+        print('-------------------------------------')
+        print('couldnt find the app on your pc')
+
+
+def unknown_command():
+    print('that\'s not a valid command')
+
+
+def type_some_shit():
+    print('waiting for hot key to be pressed')
+    print('-------------------------------------')
+    while True:
+        try:
+            if is_pressed('alt+q'):
+                print('alt q was pressed!')
+                sleep(1)
+                SendKeys('this is an obnoxiously long canned response yadayadya ', with_spaces=True)
+                pass
+            if is_pressed('alt+w'):
+                print('alt w was pressed!')
+                sleep(1)
+                SendKeys('this isnt ', with_spaces=True)
+                pass
+        except:
+            break
+
+try_to_connect()
